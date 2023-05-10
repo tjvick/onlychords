@@ -1,0 +1,92 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Only Chords</title>
+  <meta name="description" content="Familiarize yourself with the fretboard">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Only Chords">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/index.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+  <form>
+    <fieldset class="instrument-selector">
+      <h3>Choose an Instrument</h3>
+      <input type="radio" id="instrument-guitar" name="instrument" value="guitar" onchange="handleInstrumentSelect(this.value)" checked>
+      <label for="instrument-guitar">Guitar</label>
+
+      <input type="radio" id="instrument-mandolin" name="instrument" value="mandolin" onchange="handleInstrumentSelect(this.value)">
+      <label for="instrument-mandolin">Mandolin</label>
+    </fieldset>
+    <fieldset class="chord-root-selector">
+      <h3>Select a Chord Root</h3>
+      <input type="radio" id="chord-root-a" name="chord-root" value="a" onchange="handleChordSelect(this.value)" checked>
+      <label for="chord-root-a">A</label>
+
+      <input type="radio" id="chord-root-a-sharp" name="chord-root" value="a-sharp" onchange="handleChordSelect(this.value)">
+      <label for="chord-root-a-sharp">A# / B♭</label>
+
+      <input type="radio" id="chord-root-b" name="chord-root" value="b" onchange="handleChordSelect(this.value)">
+      <label for="chord-root-b">B</label>
+
+      <input type="radio" id="chord-root-c" name="chord-root" value="c" onchange="handleChordSelect(this.value)">
+      <label for="chord-root-c">C</label>
+
+      <input type="radio" id="chord-root-c-sharp" name="chord-root" value="c-sharp" onchange="handleChordSelect(this.value)">
+      <label for="chord-root-c-sharp">C# / D♭</label>
+
+      <input type="radio" id="chord-root-d" name="chord-root" value="d" onchange="handleChordSelect(this.value)">
+      <label for="chord-root-d">D</label>
+
+      <input type="radio" id="chord-root-d-sharp" name="chord-root" value="d-sharp" onchange="handleChordSelect(this.value)">
+      <label for="chord-root-d-sharp">D# / E♭</label>
+
+      <input type="radio" id="chord-root-e" name="chord-root" value="e" onchange="handleChordSelect(this.value)">
+      <label for="chord-root-e">E</label>
+
+      <input type="radio" id="chord-root-f" name="chord-root" value="f" onchange="handleChordSelect(this.value)">
+      <label for="chord-root-f">F</label>
+
+      <input type="radio" id="chord-root-f-sharp" name="chord-root" value="f-sharp" onchange="handleChordSelect(this.value)">
+      <label for="chord-root-f-sharp">F# / G♭</label>
+
+      <input type="radio" id="chord-root-g" name="chord-root" value="g" onchange="handleChordSelect(this.value)">
+      <label for="chord-root-g">G</label>
+
+      <input type="radio" id="chord-root-g-sharp" name="chord-root" value="g-sharp" onchange="handleChordSelect(this.value)">
+      <label for="chord-root-g-sharp">G# / A♭</label>
+    </fieldset>
+    <fieldset class="chord-interval-selector">
+      <input type="radio" id="major" name="interval" value="major" onchange="handleIntervalSelect(this.value)" checked>
+      <label for="major">Major</label>
+
+      <input type="radio" id="minor" name="interval" value="minor" onchange="handleIntervalSelect(this.value)">
+      <label for="minor">Minor</label>
+    </fieldset>
+  </form>
+
+  <canvas id="fretboard-canvas" role="presentation">
+  </canvas>
+
+  <!-- Add your site or application content here -->
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

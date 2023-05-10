@@ -1,0 +1,24 @@
+canvas {
+  margin-top: 30px;
+  /*border: 1px solid gray;*/
+  width: 1200px;
+  height: 300px;
+}
+
+.chord-root-selector label {
+  margin-right: 15px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.chord-interval-selector {
+  margin-top: 20px;
+}
+
+.chord-interval-selector label {
+  margin-right: 15px;
+}
+
+.instrument-selector label {
+  margin-right: 15px;
+}
