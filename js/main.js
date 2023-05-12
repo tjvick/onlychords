@@ -17,7 +17,8 @@ const instruments = {
     ],
     stringLabels: [
       "E", "A", "D", "G"
-    ]
+    ],
+    doubleStrings: true,
   }
 };
 
@@ -101,7 +102,10 @@ function label_strings(ctx, instrument) {
 }
 
 function get_string_y_position(string_number, instrument) {
-  const outer_buffer = 5;
+  let outer_buffer = 5;
+  if (instrument.doubleStrings) {
+    outer_buffer = 10;
+  }
   const strings_width = fretboard_styles.neck_width - (2 * outer_buffer);
   const string_spacing = strings_width / (instrument.n_strings-1);
   return outer_buffer + string_number * string_spacing;
@@ -112,10 +116,21 @@ function draw_strings(ctx, instrument) {
     const last_fret_position = get_fret_position(instrument.n_frets);
     for (let string_number=0; string_number<instrument.n_strings; string_number++) {
       const string_y_position = get_string_y_position(string_number, instrument);
-      ctx.beginPath();
-      ctx.moveTo(0, string_y_position);
-      ctx.lineTo(last_fret_position, string_y_position);
-      ctx.stroke();
+      if (instrument.doubleStrings) {
+        ctx.beginPath();
+        ctx.moveTo(0, string_y_position-5);
+        ctx.lineTo(last_fret_position+15, string_y_position-5);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(0, string_y_position+5);
+        ctx.lineTo(last_fret_position+15, string_y_position+5);
+        ctx.stroke();
+      } else {
+        ctx.beginPath();
+        ctx.moveTo(0, string_y_position);
+        ctx.lineTo(last_fret_position+15, string_y_position);
+        ctx.stroke();
+      }
     }
   })
 }
@@ -185,24 +200,20 @@ const chordRootNumbers = {
   "g": 10,
   "g-sharp": 11
 }
-function handleChordSelect(chordRoot) {
+function handleChordSelect(chordRoot, interval) {
   if (chordRootNumbers.hasOwnProperty(chordRoot)) {
+    if (interval) {
+      currentChordInterval = interval;
+    }
     currentChordRootNumber = chordRootNumbers[chordRoot];
-    draw(currentChordRootNumber, currentChordInterval, currentInstrument);
-  }
-}
-
-function handleIntervalSelect(interval) {
-  if (["major", "minor"].includes(interval)) {
-    currentChordInterval = interval;
-    draw(currentChordRootNumber, currentChordInterval, currentInstrument);
+    setTimeout(()=>draw(currentChordRootNumber, currentChordInterval, currentInstrument), 0);
   }
 }
 
 function handleInstrumentSelect(instrumentName) {
   if (instruments.hasOwnProperty(instrumentName)) {
     currentInstrument = instruments[instrumentName];
-    draw(currentChordRootNumber, currentChordInterval, currentInstrument)
+    setTimeout(()=>draw(currentChordRootNumber, currentChordInterval, currentInstrument), 0);
   }
 }
 
