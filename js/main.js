@@ -1,8 +1,8 @@
 const instruments = {
   "guitar": {
-    n_frets: 24,
-    n_strings: 6,
-    string_tuning: [
+    nFrets: 24,
+    nStrings: 6,
+    stringTuning: [
       7, 2, 10, 5, 0, 7
     ],
     stringLabels: [
@@ -10,9 +10,9 @@ const instruments = {
     ]
   },
   "mandolin": {
-    n_frets: 22,
-    n_strings: 4,
-    string_tuning: [
+    nFrets: 22,
+    nStrings: 4,
+    stringTuning: [
       7, 0, 5, 10
     ],
     stringLabels: [
@@ -22,16 +22,16 @@ const instruments = {
   }
 };
 
-const canvas_styles = {
-  canvas_width: 1200,
-  canvas_height: 300,
+const canvasStyles = {
+  canvasWidth: 1200,
+  canvasHeight: 300,
 };
 
-const fretboard_styles = {
-  nut_capo_width: 6,
-  fret_width: 2,
-  neck_width: 200,
-  string_length: 1500,
+const fretboardStyles = {
+  nutCapoThickness: 6,
+  fretThickness: 2,
+  neckWidth: 200,
+  stringLength: 1500,
 };
 
 
@@ -53,113 +53,113 @@ function onFretBoard(ctx, fn) {
   })
 }
 
-function draw_frets(ctx, instrument) {
+function drawFrets(ctx, instrument) {
   onFretBoard(ctx,() => {
-    for (let fret_number=0; fret_number <= instrument.n_frets; fret_number++) {
-      if (fret_number === 0) {
-        ctx.lineWidth = fretboard_styles.nut_capo_width;
+    for (let fretNumber=0; fretNumber <= instrument.nFrets; fretNumber++) {
+      if (fretNumber === 0) {
+        ctx.lineWidth = fretboardStyles.nutCapoThickness;
       } else {
-        ctx.lineWidth = fretboard_styles.fret_width;
+        ctx.lineWidth = fretboardStyles.fretThickness;
       }
 
-      const fret_position = get_fret_position(fret_number);
+      const fretPosition = getFretPosition(fretNumber);
       ctx.beginPath();
-      ctx.moveTo(fret_position, 0);
-      ctx.lineTo(fret_position, fretboard_styles.neck_width);
+      ctx.moveTo(fretPosition, 0);
+      ctx.lineTo(fretPosition, fretboardStyles.neckWidth);
       ctx.stroke();
     }
   })
 }
 
-function get_fret_position(fret_number) {
-  const frequency_ratio = 2**(fret_number/12);
-  const length_ratio = 1/frequency_ratio;
-  const fret_position = fretboard_styles.string_length * (1 - length_ratio)
-  return Math.floor(fret_position);
+function getFretPosition(fretNumber) {
+  const frequencyRatio = 2**(fretNumber/12);
+  const lengthRatio = 1/frequencyRatio;
+  const fretPosition = fretboardStyles.stringLength * (1 - lengthRatio)
+  return Math.floor(fretPosition);
 }
 
-function label_frets(ctx, instrument) {
+function labelFrets(ctx, instrument) {
   onFretBoard(ctx, () => {
     ctx.font = "16px serif";
     ctx.textAlign = "center";
-    for (let fret_number=0; fret_number <= instrument.n_frets; fret_number++) {
-      const fret_position = get_fret_position(fret_number);
-      ctx.fillText(`${fret_number}`, fret_position, fretboard_styles.neck_width+20);
+    for (let fretNumber=0; fretNumber <= instrument.nFrets; fretNumber++) {
+      const fretPosition = getFretPosition(fretNumber);
+      ctx.fillText(`${fretNumber}`, fretPosition, fretboardStyles.neckWidth+20);
     }
   })
 }
 
-function label_strings(ctx, instrument) {
+function labelStrings(ctx, instrument) {
   onFretBoard(ctx, () => {
     ctx.font = "16px serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle"
-    instrument.stringLabels.forEach((label, string_number) => {
-      const y_position = get_string_y_position(string_number, instrument);
-      ctx.fillText(label, -40, y_position+2);
+    instrument.stringLabels.forEach((label, stringNumber) => {
+      const yPosition = getStringYPosition(stringNumber, instrument);
+      ctx.fillText(label, -40, yPosition+2);
     })
   })
 }
 
-function get_string_y_position(string_number, instrument) {
-  let outer_buffer = 5;
+function getStringYPosition(stringNumber, instrument) {
+  let outerBuffer = 5;
   if (instrument.doubleStrings) {
-    outer_buffer = 10;
+    outerBuffer = 10;
   }
-  const strings_width = fretboard_styles.neck_width - (2 * outer_buffer);
-  const string_spacing = strings_width / (instrument.n_strings-1);
-  return outer_buffer + string_number * string_spacing;
+  const stringsWidth = fretboardStyles.neckWidth - (2 * outerBuffer);
+  const stringSpacing = stringsWidth / (instrument.nStrings-1);
+  return outerBuffer + stringNumber * stringSpacing;
 }
 
-function draw_strings(ctx, instrument) {
+function drawStrings(ctx, instrument) {
   onFretBoard(ctx, () => {
-    const last_fret_position = get_fret_position(instrument.n_frets);
-    for (let string_number=0; string_number<instrument.n_strings; string_number++) {
-      const string_y_position = get_string_y_position(string_number, instrument);
+    const lastFretPosition = getFretPosition(instrument.nFrets);
+    for (let stringNumber=0; stringNumber<instrument.nStrings; stringNumber++) {
+      const stringYPosition = getStringYPosition(stringNumber, instrument);
       if (instrument.doubleStrings) {
         ctx.beginPath();
-        ctx.moveTo(0, string_y_position-5);
-        ctx.lineTo(last_fret_position+15, string_y_position-5);
+        ctx.moveTo(0, stringYPosition-5);
+        ctx.lineTo(lastFretPosition+15, stringYPosition-5);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(0, string_y_position+5);
-        ctx.lineTo(last_fret_position+15, string_y_position+5);
+        ctx.moveTo(0, stringYPosition+5);
+        ctx.lineTo(lastFretPosition+15, stringYPosition+5);
         ctx.stroke();
       } else {
         ctx.beginPath();
-        ctx.moveTo(0, string_y_position);
-        ctx.lineTo(last_fret_position+15, string_y_position);
+        ctx.moveTo(0, stringYPosition);
+        ctx.lineTo(lastFretPosition+15, stringYPosition);
         ctx.stroke();
       }
     }
   })
 }
 
-function draw_tones(ctx, instrument, toneNumber, fillStyle, text) {
+function drawTones(ctx, instrument, toneNumber, fillStyle, text) {
   onFretBoard(ctx, () => {
     ctx.fillStyle = fillStyle
     ctx.font = "16px serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle"
 
-    for (let string_number=0; string_number < instrument.n_strings; string_number++) {
-      const string_y_position = get_string_y_position(string_number, instrument);
-      const string_base_note = instrument.string_tuning[string_number]
-      for (let fret_number=0; fret_number < instrument.n_frets; fret_number ++) {
-        const fret_x_position = get_fret_position(fret_number);
-        const fret_note = (string_base_note + fret_number) % 12;
-        if (fret_note === toneNumber) {
+    for (let stringNumber=0; stringNumber < instrument.nStrings; stringNumber++) {
+      const stringYPosition = getStringYPosition(stringNumber, instrument);
+      const stringBaseNote = instrument.stringTuning[stringNumber]
+      for (let fretNumber=0; fretNumber < instrument.nFrets; fretNumber ++) {
+        const fretXPosition = getFretPosition(fretNumber);
+        const fretNote = (stringBaseNote + fretNumber) % 12;
+        if (fretNote === toneNumber) {
 
-          const ellipse_width = 16;
-          const ellipse_height = 10;
+          const ellipseWidth = 16;
+          const ellipseHeight = 10;
           ctx.beginPath();
-          ctx.ellipse(fret_x_position, string_y_position, ellipse_width, ellipse_height, 0, 0, Math.PI * 2);
+          ctx.ellipse(fretXPosition, stringYPosition, ellipseWidth, ellipseHeight, 0, 0, Math.PI * 2);
           ctx.fillStyle = fillStyle
           ctx.fill();
           ctx.stroke();
 
           ctx.fillStyle = "rgb(0, 0, 0)"
-          ctx.fillText(text, fret_x_position, string_y_position+2)
+          ctx.fillText(text, fretXPosition, stringYPosition+2)
         }
       }
     }
@@ -168,21 +168,21 @@ function draw_tones(ctx, instrument, toneNumber, fillStyle, text) {
 
 function draw(chordRootNumber, chordInterval, instrument) {
   const canvas = document.getElementById("fretboard-canvas");
-  canvas.width = canvas_styles.canvas_width * 2;
-  canvas.height = canvas_styles.canvas_height * 2;
+  canvas.width = canvasStyles.canvasWidth * 2;
+  canvas.height = canvasStyles.canvasHeight * 2;
   if (canvas.getContext) {
     const ctx = canvas.getContext("2d");
     ctx.scale(2, 2);
 
     const thirdInterval = chordInterval === "major" ? 4 : 3;
 
-    draw_frets(ctx, instrument);
-    draw_strings(ctx, instrument);
-    label_frets(ctx, instrument);
-    label_strings(ctx, instrument);
-    draw_tones(ctx, instrument, chordRootNumber, "rgb(0, 190, 0)", "R");
-    draw_tones(ctx, instrument, (chordRootNumber+thirdInterval) % 12, "rgb(210, 255, 0)", "3");
-    draw_tones(ctx, instrument,(chordRootNumber+7) % 12, "rgb(150, 210, 0)", "5");
+    drawFrets(ctx, instrument);
+    drawStrings(ctx, instrument);
+    labelFrets(ctx, instrument);
+    labelStrings(ctx, instrument);
+    drawTones(ctx, instrument, chordRootNumber, "rgb(0, 190, 0)", "R");
+    drawTones(ctx, instrument, (chordRootNumber+thirdInterval) % 12, "rgb(210, 255, 0)", "3");
+    drawTones(ctx, instrument,(chordRootNumber+7) % 12, "rgb(150, 210, 0)", "5");
   }
 }
 
