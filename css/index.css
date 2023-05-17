@@ -14,13 +14,36 @@
   width: 100%;
   max-width: 1200px;
   overflow-x: auto;
-  margin: 0 auto;
+  margin: 0 auto 40px;
 }
 
-canvas {
+#fretboard-canvas {
   display: block;
   width: 1200px;
   height: 300px;
+}
+
+.piano-container {
+  width: 100%;
+  max-width: 1200px;
+  overflow-x: auto;
+  margin: 0 auto 40px;
+}
+
+#piano-canvas {
+  display: block;
+  width: 1200px;
+  height: 150px;
+}
+
+.hidden-container {
+  display: none;
+}
+
+#hit-canvas {
+  display: block;
+  width: 1200px;
+  height: 200px;
 }
 
 .chord-root-selector label {
