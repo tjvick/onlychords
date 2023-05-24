@@ -134,6 +134,8 @@ function pianoClickHandler(hitCtx) {
   }
 }
 
+export const controllers = [];
+
 export function drawPiano(state) {
   const {chordRootNumber, chordInterval, activeTones} = state;
 
@@ -149,6 +151,8 @@ export function drawPiano(state) {
     drawPianoKeys(ctx, chordRootNumber);
     labelPianoKeys(ctx);
     drawTonesOnPiano(ctx, hitCtx, chordRootNumber, chordInterval, activeTones);
-    pianoCanvas.addEventListener('click', pianoClickHandler(hitCtx));
+
+    const controller = new AbortController();
+    pianoCanvas.addEventListener('click', pianoClickHandler(hitCtx), {signal: controller.signal});
   }
 }

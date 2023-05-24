@@ -1,18 +1,18 @@
 import state from "./state";
 import {drawFretBoard} from "../components/fretboard";
-import {drawPiano} from "../components/piano";
+import {drawPiano, controllers} from "../components/piano";
 
 
 function resetPianoClickHandlers() {
-  const existingCanvas = document.getElementById("piano-canvas");
-  const newPianoCanvas = existingCanvas.cloneNode(true);
-  existingCanvas.parentNode.replaceChild(newPianoCanvas, existingCanvas);
+  while (controllers.length > 0) {
+    controllers.pop().abort();
+  }
 }
 
 export function redrawPiano() {
   setTimeout(() => {
     resetPianoClickHandlers();
-    drawPiano(state)
+    drawPiano(state);
   }, 0);
 }
 
