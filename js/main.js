@@ -1,13 +1,8 @@
 import state from './shared/state';
 import {instruments} from "./shared/constants";
-import {Piano} from "./piano/piano";
-import {Fretboard} from "./fretboard/fretboard";
+import {redrawAll, redrawFretboard} from "./shared/commands";
 
-const piano = new Piano();
-piano.draw(state);
-
-const fretboard = new Fretboard();
-fretboard.draw(state);
+redrawAll();
 
 const chordRootNumbers = {
   "a": 0,
@@ -29,15 +24,14 @@ function handleChordSelect(chordRoot, interval) {
     if (interval) {
       state.chordQuality = interval;
     }
-    new Fretboard().draw(state);
-    new Piano().draw(state);
+    redrawAll();
   }
 }
 
 function handleInstrumentSelect(instrumentName) {
   if (instruments.hasOwnProperty(instrumentName)) {
     state.instrument = instruments[instrumentName];
-    new Fretboard().draw(state);
+    redrawFretboard();
   }
 }
 

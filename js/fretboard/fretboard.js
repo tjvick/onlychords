@@ -13,41 +13,42 @@ const canvasSize = {
 
 
 export class Fretboard {
-  constructor() {
+  constructor(instrument) {
     let [_, ctx] = constructScaledCanvas("fretboard-canvas", canvasSize);
     this.ctx = ctx;
+    this.instrument = instrument;
   }
 
-  drawStrings(instrument) {
-    for (let stringNumber=0; stringNumber<instrument.nStrings; stringNumber++) {
-      const fretboardString = getFretboardString(instrument, stringNumber);
+  drawStrings() {
+    for (let stringNumber=0; stringNumber<this.instrument.nStrings; stringNumber++) {
+      const fretboardString = getFretboardString(this.instrument, stringNumber);
       fretboardString.draw(this.ctx);
     }
   }
 
-  drawFrets(instrument) {
-    for (let fretNumber=0; fretNumber <= instrument.nFrets; fretNumber++) {
+  drawFrets() {
+    for (let fretNumber=0; fretNumber <= this.instrument.nFrets; fretNumber++) {
       const fret = new FretboardFret(fretNumber);
       fret.draw(this.ctx);
     }
   }
 
-  drawSemitones(instrument, chordRootNumber, chordQuality, activeTones) {
+  drawSemitones(chordRootNumber, chordQuality, activeTones) {
     activeTones.forEach((activeTone) => {
       const semitone = chordSemitones[chordQuality].find((note) => note.label === activeTone);
-      const fretboardSemitone = new FretboardSemitone(instrument, chordRootNumber, semitone);
+      const fretboardSemitone = new FretboardSemitone(this.instrument, chordRootNumber, semitone);
       fretboardSemitone.draw(this.ctx);
     })
   }
 
   draw(state) {
-    const {instrument, chordRootNumber, chordQuality, activeTones} = state;
+    const {chordRootNumber, chordQuality, activeTones} = state;
 
     const onFretboard = isolatedTranslate(fretboardStyles.offsetX, fretboardStyles.offsetY);
     onFretboard(this.ctx, () => {
-      this.drawStrings(instrument);
-      this.drawFrets(instrument);
-      this.drawSemitones(instrument, chordRootNumber, chordQuality, activeTones);
+      this.drawStrings();
+      this.drawFrets();
+      this.drawSemitones(chordRootNumber, chordQuality, activeTones);
     })
   }
 }
