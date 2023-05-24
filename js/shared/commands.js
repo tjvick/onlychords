@@ -1,11 +1,8 @@
 import state from "./state";
-import {drawFretBoard} from "../components/fretboard";
+import {Piano} from "../piano/piano";
+import {Fretboard} from "../components/fretboard";
 
-export function redrawFretboard() {
-  setTimeout(() => drawFretBoard(state.chordRootNumber, state.chordQuality, state.instrument), 0);
-}
-
-export function redrawAll(piano) {
-  redrawFretboard();
-  piano.draw(state);
+export function redrawAll() {
+  new Piano().draw(state);
+  new Fretboard().draw(state);
 }

@@ -1,4 +1,4 @@
-import {semitonePositions} from "../shared/constants";
+import {chordSemitones} from "../shared/constants";
 import {constructScaledCanvas, isolatedTranslate, toggleSemitone} from "../shared/utils";
 import {redrawAll} from "../shared/commands";
 import {PianoKey} from "./pianoKey";
@@ -34,7 +34,7 @@ export class Piano {
   }
 
   drawSemitones(chordRootNumber, chordQuality, activeTones) {
-    semitonePositions[chordQuality].forEach((semitonePosition) => {
+    chordSemitones[chordQuality].forEach((semitonePosition) => {
       const isActive = activeTones.has(semitonePosition.label);
 
       const semiTone = new PianoSemiTone(chordRootNumber, semitonePosition);
@@ -51,7 +51,7 @@ export class Piano {
       const clickedSemitone = clickCanvas.getClickedSemitone(event);
       if (clickedSemitone) {
         toggleSemitone(clickedSemitone);
-        redrawAll(new Piano());
+        redrawAll();
       }
     }
   }

@@ -22,7 +22,7 @@ export const instruments = {
   }
 };
 
-export const semitonePositions = {
+export const chordSemitones = {
   major: [
     {label: "R", position: 0},
     {label: "2", position: 2},

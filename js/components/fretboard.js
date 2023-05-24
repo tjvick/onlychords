@@ -1,6 +1,5 @@
-import state from "../shared/state";
-import {semitonePositions} from "../shared/constants";
-import {isolate, isolatedTranslate} from "../shared/utils";
+import {chordSemitones} from "../shared/constants";
+import {constructScaledCanvas, isolate, isolatedTranslate} from "../shared/utils";
 import {toneColors} from "../shared/theme";
 
 const canvasSize = {
@@ -18,25 +17,164 @@ const fretboardStyles = {
   stringLength: 1500,
 };
 
-const onFretBoard = isolatedTranslate(fretboardStyles.offsetX, fretboardStyles.offsetY);
 
-function drawFrets(ctx, instrument) {
-  onFretBoard(ctx,() => {
-    for (let fretNumber=0; fretNumber <= instrument.nFrets; fretNumber++) {
-      if (fretNumber === 0) {
-        ctx.lineWidth = fretboardStyles.nutCapoThickness;
+class FretboardString {
+  constructor(instrument, stringNumber) {
+    this.label = instrument.stringLabels[stringNumber];
+    this.instrument = instrument;
+    this.yPosition = getStringYPosition(stringNumber, instrument)
+  }
+
+  drawLine(ctx) {
+    const y = this.yPosition;
+    const xLastFret = getFretPosition(this.instrument.nFrets);
+    const xEnd = xLastFret + 15;
+    isolate(ctx, () => {
+      if (this.instrument.doubleStrings) {
+        ctx.beginPath();
+        ctx.moveTo(0, y-5);
+        ctx.lineTo(xEnd, y-5);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(0, y+5);
+        ctx.lineTo(xEnd, y+5);
+        ctx.stroke();
       } else {
-        ctx.lineWidth = fretboardStyles.fretThickness;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(xEnd, y);
+        ctx.stroke();
       }
+    })
+  }
 
-      const fretPosition = getFretPosition(fretNumber);
-      ctx.beginPath();
-      ctx.moveTo(fretPosition, 0);
-      ctx.lineTo(fretPosition, fretboardStyles.neckWidth);
-      ctx.stroke();
-    }
-  })
+  writeLabel(ctx) {
+    ctx.font = "16px serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle"
+    ctx.fillText(this.label, -40, this.yPosition+2);
+  }
+
+  draw(ctx) {
+    this.drawLine(ctx);
+    this.writeLabel(ctx);
+  }
 }
+
+
+class FretboardFret {
+  constructor(fretNumber) {
+    this.fretNumber = fretNumber;
+    this.fretPosition = getFretPosition(fretNumber);
+  }
+
+  drawLine(ctx) {
+    isolate(ctx, () => {
+      ctx.beginPath();
+      ctx.moveTo(this.fretPosition, 0);
+      ctx.lineTo(this.fretPosition, fretboardStyles.neckWidth);
+      ctx.lineWidth = this.fretNumber === 0
+        ? fretboardStyles.nutCapoThickness
+        : fretboardStyles.fretThickness;
+      ctx.stroke();
+    })
+  }
+
+  writeLabel(ctx) {
+    isolate(ctx, () => {
+      ctx.font = "16px serif";
+      ctx.textAlign = "center";
+      ctx.fillText(`${this.fretNumber}`, this.fretPosition, fretboardStyles.neckWidth + 20);
+    })
+  }
+
+  draw(ctx) {
+    this.drawLine(ctx);
+    this.writeLabel(ctx);
+  }
+}
+
+
+class FretboardSemitone {
+  constructor(instrument, chordRootNumber, semitone) {
+    this.instrument = instrument;
+    this.label = semitone.label;
+    this.position = semitone.position;
+
+    this.noteNumber = (chordRootNumber+semitone.position) % 12;
+  }
+
+  draw(ctx) {
+    ctx.font = "16px serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle"
+
+    for (let stringNumber=0; stringNumber < this.instrument.nStrings; stringNumber++) {
+      const stringYPosition = getStringYPosition(stringNumber, this.instrument);
+      const stringBaseNote = this.instrument.stringTuning[stringNumber]
+      for (let fretNumber=0; fretNumber < this.instrument.nFrets; fretNumber ++) {
+        const fretXPosition = getFretPosition(fretNumber);
+        const fretNote = (stringBaseNote + fretNumber) % 12;
+        if (fretNote === this.noteNumber) {
+
+          const ellipseWidth = 16;
+          const ellipseHeight = 10;
+          ctx.beginPath();
+          ctx.ellipse(fretXPosition, stringYPosition, ellipseWidth, ellipseHeight, 0, 0, Math.PI * 2);
+          ctx.fillStyle = toneColors[this.label]
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.fillStyle = "rgb(0, 0, 0)"
+          ctx.fillText(this.label, fretXPosition, stringYPosition+2)
+        }
+      }
+    }
+  }
+}
+
+
+export class Fretboard {
+  canvas; ctx;
+
+  constructor() {
+    [this.canvas, this.ctx] = constructScaledCanvas("fretboard-canvas", canvasSize);
+  }
+
+  drawStrings(instrument) {
+    for (let stringNumber=0; stringNumber<instrument.nStrings; stringNumber++) {
+      const fretboardString = new FretboardString(instrument, stringNumber);
+      fretboardString.draw(this.ctx);
+    }
+  }
+
+  drawFrets(instrument) {
+    for (let fretNumber=0; fretNumber <= instrument.nFrets; fretNumber++) {
+      const fret = new FretboardFret(fretNumber);
+      fret.draw(this.ctx);
+    }
+  }
+
+  drawSemitones(instrument, chordRootNumber, chordQuality, activeTones) {
+    activeTones.forEach((activeTone) => {
+      const semitone = chordSemitones[chordQuality].find((note) => note.label === activeTone);
+      const fretboardSemitone = new FretboardSemitone(instrument, chordRootNumber, semitone);
+      fretboardSemitone.draw(this.ctx);
+    })
+  }
+
+  draw(state) {
+    const {instrument, chordRootNumber, chordQuality, activeTones} = state;
+
+    const onFretboard = isolatedTranslate(fretboardStyles.offsetX, fretboardStyles.offsetY);
+    onFretboard(this.ctx, () => {
+      this.drawStrings(instrument);
+      this.drawFrets(instrument);
+      this.drawSemitones(instrument, chordRootNumber, chordQuality, activeTones);
+    })
+  }
+}
+
 
 function getFretPosition(fretNumber) {
   const frequencyRatio = 2**(fretNumber/12);
@@ -45,28 +183,6 @@ function getFretPosition(fretNumber) {
   return Math.floor(fretPosition);
 }
 
-function labelFrets(ctx, instrument) {
-  onFretBoard(ctx, () => {
-    ctx.font = "16px serif";
-    ctx.textAlign = "center";
-    for (let fretNumber=0; fretNumber <= instrument.nFrets; fretNumber++) {
-      const fretPosition = getFretPosition(fretNumber);
-      ctx.fillText(`${fretNumber}`, fretPosition, fretboardStyles.neckWidth+20);
-    }
-  })
-}
-
-function labelStrings(ctx, instrument) {
-  onFretBoard(ctx, () => {
-    ctx.font = "16px serif";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle"
-    instrument.stringLabels.forEach((label, stringNumber) => {
-      const yPosition = getStringYPosition(stringNumber, instrument);
-      ctx.fillText(label, -40, yPosition+2);
-    })
-  })
-}
 
 function getStringYPosition(stringNumber, instrument) {
   let outerBuffer = 5;
@@ -78,75 +194,3 @@ function getStringYPosition(stringNumber, instrument) {
   return outerBuffer + stringNumber * stringSpacing;
 }
 
-function drawStrings(ctx, instrument) {
-  onFretBoard(ctx, () => {
-    const lastFretPosition = getFretPosition(instrument.nFrets);
-    for (let stringNumber=0; stringNumber<instrument.nStrings; stringNumber++) {
-      const stringYPosition = getStringYPosition(stringNumber, instrument);
-      if (instrument.doubleStrings) {
-        ctx.beginPath();
-        ctx.moveTo(0, stringYPosition-5);
-        ctx.lineTo(lastFretPosition+15, stringYPosition-5);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(0, stringYPosition+5);
-        ctx.lineTo(lastFretPosition+15, stringYPosition+5);
-        ctx.stroke();
-      } else {
-        ctx.beginPath();
-        ctx.moveTo(0, stringYPosition);
-        ctx.lineTo(lastFretPosition+15, stringYPosition);
-        ctx.stroke();
-      }
-    }
-  })
-}
-
-function drawTones(ctx, instrument, toneNumber, label) {
-  onFretBoard(ctx, () => {
-    ctx.font = "16px serif";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle"
-
-    for (let stringNumber=0; stringNumber < instrument.nStrings; stringNumber++) {
-      const stringYPosition = getStringYPosition(stringNumber, instrument);
-      const stringBaseNote = instrument.stringTuning[stringNumber]
-      for (let fretNumber=0; fretNumber < instrument.nFrets; fretNumber ++) {
-        const fretXPosition = getFretPosition(fretNumber);
-        const fretNote = (stringBaseNote + fretNumber) % 12;
-        if (fretNote === toneNumber) {
-
-          const ellipseWidth = 16;
-          const ellipseHeight = 10;
-          ctx.beginPath();
-          ctx.ellipse(fretXPosition, stringYPosition, ellipseWidth, ellipseHeight, 0, 0, Math.PI * 2);
-          ctx.fillStyle = toneColors[label]
-          ctx.fill();
-          ctx.stroke();
-
-          ctx.fillStyle = "rgb(0, 0, 0)"
-          ctx.fillText(label, fretXPosition, stringYPosition+2)
-        }
-      }
-    }
-  })
-}
-
-export function drawFretBoard(chordRootNumber, chordQuality, instrument) {
-  const canvas = document.getElementById("fretboard-canvas");
-  canvas.width = canvasSize.width * canvasSize.scaleFactor;
-  canvas.height = canvasSize.height * canvasSize.scaleFactor;
-  if (canvas.getContext) {
-    const ctx = canvas.getContext("2d");
-    ctx.scale(canvasSize.scaleFactor, canvasSize.scaleFactor);
-
-    drawFrets(ctx, instrument);
-    drawStrings(ctx, instrument);
-    labelFrets(ctx, instrument);
-    labelStrings(ctx, instrument);
-    state.activeTones.forEach((activeTone) => {
-      const note = semitonePositions[chordQuality].find((note) => note.label === activeTone);
-      drawTones(ctx, instrument, (chordRootNumber+note.position) % 12, note.label);
-    })
-  }
-}
