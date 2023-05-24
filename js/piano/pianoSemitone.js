@@ -1,9 +1,6 @@
 import {pianoKeyStyles} from "./pianoKey";
 import {toneColors} from "../shared/theme";
-import {getRandomColor, isolate} from "../shared/utils";
-
-const ellipseWidth = 16;
-const ellipseHeight = 10;
+import {drawEllipse, getRandomColor, isolate} from "../shared/utils";
 
 export class PianoSemiTone {
   constructor(rootKeyIndex, chordSemitone) {
@@ -16,25 +13,14 @@ export class PianoSemiTone {
     this.invisibleColor = getRandomColor();
   }
 
-  drawEllipse(ctx, fillStyle, strokeStyle, buffer = 0) {
-    isolate(ctx, () => {
-      ctx.beginPath();
-      ctx.ellipse(this.xPosition, this.yPosition, ellipseWidth + buffer, ellipseHeight + buffer, 0, 0, Math.PI * 2);
-      ctx.fillStyle = fillStyle;
-      ctx.fill();
-      ctx.strokeStyle = strokeStyle;
-      ctx.stroke();
-    })
-  }
-
   drawVisibleShape(ctx, isActive) {
     const fillStyle = isActive ? toneColors[this.label] : "lightgray";
     const strokeStyle = isActive ? "black" : "gray";
-    this.drawEllipse(ctx, fillStyle, strokeStyle);
+    drawEllipse(ctx, this.xPosition, this.yPosition, 0, fillStyle, strokeStyle);
   }
 
   drawInvisibleShape(ctx) {
-    this.drawEllipse(ctx, this.invisibleColor, this.invisibleColor, 3);
+    drawEllipse(ctx, this.xPosition, this.yPosition, 3, this.invisibleColor, this.invisibleColor);
   }
 
   drawShape(visibleCtx, invisibleCtx, isActive) {

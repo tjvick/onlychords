@@ -1,7 +1,7 @@
 import state from './shared/state';
 import {instruments} from "./shared/constants";
 import {Piano} from "./piano/piano";
-import {Fretboard} from "./components/fretboard";
+import {Fretboard} from "./fretboard/fretboard";
 
 const piano = new Piano();
 piano.draw(state);

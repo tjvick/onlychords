@@ -15,6 +15,19 @@ export function isolatedTranslate(offsetX, offsetY) {
   }
 }
 
+const ellipseWidth = 16;
+const ellipseHeight = 10;
+export function drawEllipse(ctx, x, y, buffer, fillStyle, strokeStyle) {
+  isolate(ctx, () => {
+    ctx.beginPath();
+    ctx.ellipse(x, y, ellipseWidth + buffer, ellipseHeight + buffer, 0, 0, Math.PI * 2);
+    ctx.fillStyle = fillStyle;
+    ctx.fill();
+    ctx.strokeStyle = strokeStyle;
+    ctx.stroke();
+  })
+}
+
 export function getRandomColor() {
   const r = Math.round(Math.random() * 255);
   const g = Math.round(Math.random() * 255);
