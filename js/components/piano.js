@@ -71,45 +71,46 @@ function labelPianoKeys(ctx) {
   })
 }
 
-const hitMap = {};
+const ellipseWidth = 16;
+const ellipseHeight = 10;
 
-function drawTonesOnPiano(ctx, hitCtx, chordRootNumber, chordInterval, activeTones) {
-  const ellipseWidth = 16;
-  const ellipseHeight = 10;
+function drawToneOnPiano(ctx, x, y, fillStyle, strokeStyle, buffer=0) {
+  onPiano(ctx, () => {
+    ctx.beginPath();
+    ctx.ellipse(x, y, ellipseWidth+buffer, ellipseHeight+buffer, 0, 0, Math.PI * 2);
+    ctx.fillStyle = fillStyle;
+    ctx.fill();
+    ctx.strokeStyle = strokeStyle;
+    ctx.stroke();
+  })
+}
 
+function labelToneOnPiano(ctx, x, y, label) {
   onPiano(ctx, () => {
     ctx.font = "16px serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle"
-
-    chordPositions[chordInterval].forEach((chordPosition) => {
-      const x = getKeyXPosition(chordRootNumber + chordPosition.position) + pianoStyles.keyWidth / 2;
-      const y = pianoStyles.keyHeight + 20;
-      ctx.beginPath();
-      ctx.ellipse(x, y, ellipseWidth, ellipseHeight, 0, 0, Math.PI * 2);
-      ctx.fillStyle = activeTones.includes(chordPosition.label) ? toneColors[chordPosition.label] : "lightgray";
-      ctx.fill();
-      ctx.strokeStyle = activeTones.includes(chordPosition.label) ? "black" : "gray";
-      ctx.stroke();
-
-      ctx.fillStyle = "rgb(0, 0, 0)"
-      ctx.fillText(chordPosition.label, x, y+2)
-    });
+    ctx.fillStyle = "rgb(0, 0, 0)"
+    ctx.fillText(label, x, y+2)
   })
+}
 
-  onPiano(hitCtx, () => {
-    chordPositions[chordInterval].forEach((chordPosition) => {
-      const x = getKeyXPosition(chordRootNumber + chordPosition.position) + pianoStyles.keyWidth / 2;
-      const y = pianoStyles.keyHeight + 20;
+const hitMap = {};
 
-      const hitColor = getRandomColor();
-      hitCtx.beginPath();
-      hitCtx.ellipse(x, y, ellipseWidth+3, ellipseHeight+3, 0, 0, Math.PI * 2);
-      hitCtx.fillStyle = hitColor;
-      hitCtx.fill();
+function drawTonesOnPiano(ctx, hitCtx, chordRootNumber, chordInterval, activeTones) {
+  chordPositions[chordInterval].forEach((chordPosition) => {
+    const x = getKeyXPosition(chordRootNumber + chordPosition.position) + pianoStyles.keyWidth / 2;
+    const y = pianoStyles.keyHeight + 20;
 
-      hitMap[hitColor] = chordPosition;
-    });
+    const isActive = activeTones.includes(chordPosition.label)
+    const fillStyle = isActive ? toneColors[chordPosition.label] : "lightgray";
+    const strokeStyle = isActive ? "black" : "gray";
+    drawToneOnPiano(ctx, x, y, fillStyle, strokeStyle);
+    labelToneOnPiano(ctx, x, y, chordPosition.label);
+
+    const hitColor = getRandomColor();
+    drawToneOnPiano(hitCtx, x, y, hitColor, hitColor, 3);
+    hitMap[hitColor] = chordPosition;
   })
 }
 
