@@ -25,3 +25,10 @@ export function scaleCanvas(canvasSize, canvasElement, context) {
   canvasElement.height = canvasSize.height * canvasSize.scaleFactor;
   context.scale(canvasSize.scaleFactor, canvasSize.scaleFactor);
 }
+
+export function constructScaledCanvas(elementId, canvasSize) {
+  const canvas = document.getElementById(elementId);
+  const ctx = canvas.getContext("2d");
+  scaleCanvas(canvasSize, canvas, ctx);
+  return [canvas, ctx];
+}

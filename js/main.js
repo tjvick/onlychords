@@ -1,9 +1,12 @@
 import state from './shared/state';
 import {instruments} from "./shared/constants";
-import {redrawAll, redrawFretboard, redrawPiano} from "./shared/commands";
+import {redrawFretboard} from "./shared/commands";
+import {Piano} from "./components/piano";
+
+const piano = new Piano();
+piano.draw(state);
 
 redrawFretboard()
-redrawPiano()
 
 const chordRootNumbers = {
   "a": 0,
@@ -25,7 +28,8 @@ function handleChordSelect(chordRoot, interval) {
     if (interval) {
       state.chordInterval = interval;
     }
-    redrawAll();
+    redrawFretboard();
+    new Piano().draw(state);
   }
 }
 
