@@ -1,3 +1,5 @@
+import state from "./state";
+
 export function isolate(ctx, fn) {
   ctx.save();
   fn();
@@ -31,4 +33,12 @@ export function constructScaledCanvas(elementId, canvasSize) {
   const ctx = canvas.getContext("2d");
   scaleCanvas(canvasSize, canvas, ctx);
   return [canvas, ctx];
+}
+
+export function toggleSemitone(clickedSemitone) {
+  if (state.activeTones.has(clickedSemitone)) {
+    state.activeTones.delete(clickedSemitone);
+  } else {
+    state.activeTones.add(clickedSemitone);
+  }
 }

@@ -1,5 +1,5 @@
 import state from "../shared/state";
-import {chordPositions} from "../shared/constants";
+import {semitonePositions} from "../shared/constants";
 import {isolate, isolatedTranslate} from "../shared/utils";
 import {toneColors} from "../shared/theme";
 
@@ -132,7 +132,7 @@ function drawTones(ctx, instrument, toneNumber, label) {
   })
 }
 
-export function drawFretBoard(chordRootNumber, chordInterval, instrument) {
+export function drawFretBoard(chordRootNumber, chordQuality, instrument) {
   const canvas = document.getElementById("fretboard-canvas");
   canvas.width = canvasSize.width * canvasSize.scaleFactor;
   canvas.height = canvasSize.height * canvasSize.scaleFactor;
@@ -145,7 +145,7 @@ export function drawFretBoard(chordRootNumber, chordInterval, instrument) {
     labelFrets(ctx, instrument);
     labelStrings(ctx, instrument);
     state.activeTones.forEach((activeTone) => {
-      const note = chordPositions[chordInterval].find((note) => note.label === activeTone);
+      const note = semitonePositions[chordQuality].find((note) => note.label === activeTone);
       drawTones(ctx, instrument, (chordRootNumber+note.position) % 12, note.label);
     })
   }

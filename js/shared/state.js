@@ -2,9 +2,9 @@ import {instruments} from "./constants";
 
 let state = {
   chordRootNumber: 0,
-  chordInterval: "major",
+  chordQuality: "major",
   instrument: instruments["guitar"],
-  activeTones: ["R", "3", "5"],
+  activeTones: new Set(["R", "3", "5"]),
 };
 
 export default state;
