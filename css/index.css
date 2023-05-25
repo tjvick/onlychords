@@ -159,14 +159,13 @@
   border-radius: 50%;
 }
 
-.chord-selection.major input:checked ~label {
+.chord-selection.major input:checked ~ label {
   background-color: rgb(0, 90, 0);
 }
 
-.chord-selection.minor input:checked ~label {
+.chord-selection.minor input:checked ~ label {
   background-color: rgb(0, 0, 90);
 }
-
 
 .out2rot0 {
   transform: translate(200%);
@@ -205,7 +204,6 @@
   transform: rotate(-330deg) translate(200%) rotate(330deg);
 }
 
-
 .out1rot0 {
   transform: translate(130%);
 }
@@ -242,5 +240,3 @@
 .out1rot330 {
   transform: rotate(-330deg) translate(130%) rotate(330deg);
 }
-
-

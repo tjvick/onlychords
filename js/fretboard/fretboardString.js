@@ -1,6 +1,5 @@
-import {isolate} from "../shared/utils";
-import {fretboardStyles, getFretPosition} from "./shared";
-
+import { isolate } from "../shared/utils";
+import { fretboardStyles, getFretPosition } from "./shared";
 
 class SingledFretboardString {
   constructor(instrument, stringNumber) {
@@ -11,7 +10,7 @@ class SingledFretboardString {
 
   getYPosition() {
     let outerBuffer = 5;
-    const stringsWidth = fretboardStyles.neckWidth - (2 * outerBuffer);
+    const stringsWidth = fretboardStyles.neckWidth - 2 * outerBuffer;
     const stringSpacing = stringsWidth / (this.instrument.nStrings - 1);
     return outerBuffer + this.stringNumber * stringSpacing;
   }
@@ -25,13 +24,13 @@ class SingledFretboardString {
       ctx.moveTo(0, y);
       ctx.lineTo(xEnd, y);
       ctx.stroke();
-    })
+    });
   }
 
   writeLabel(ctx) {
     ctx.font = "16px serif";
     ctx.textAlign = "center";
-    ctx.textBaseline = "middle"
+    ctx.textBaseline = "middle";
     ctx.fillText(this.label, -40, this.getYPosition() + 2);
   }
 
@@ -48,7 +47,7 @@ class DoubledFretboardString extends SingledFretboardString {
 
   getYPosition() {
     const outerBuffer = 10;
-    const stringsWidth = fretboardStyles.neckWidth - (2 * outerBuffer);
+    const stringsWidth = fretboardStyles.neckWidth - 2 * outerBuffer;
     const stringSpacing = stringsWidth / (this.instrument.nStrings - 1);
     return outerBuffer + this.stringNumber * stringSpacing;
   }
@@ -66,7 +65,7 @@ class DoubledFretboardString extends SingledFretboardString {
       ctx.moveTo(0, y + 5);
       ctx.lineTo(xEnd, y + 5);
       ctx.stroke();
-    })
+    });
   }
 }
 

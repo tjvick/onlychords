@@ -1,9 +1,13 @@
-import {chordSemitones} from "../shared/constants";
-import {constructScaledCanvas, isolatedTranslate, toggleSemitone} from "../shared/utils";
-import {redrawAll} from "../shared/commands";
-import {PianoKey} from "./pianoKey";
-import {PianoSemiTone} from "./pianoSemitone";
-import {PianoClickCanvas} from "./pianoClickCanvas";
+import { chordSemitones } from "../shared/constants";
+import {
+  constructScaledCanvas,
+  isolatedTranslate,
+  toggleSemitone,
+} from "../shared/utils";
+import { redrawAll } from "../shared/commands";
+import { PianoKey } from "./pianoKey";
+import { PianoSemiTone } from "./pianoSemitone";
+import { PianoClickCanvas } from "./pianoClickCanvas";
 
 const canvasSize = {
   width: 1200,
@@ -14,10 +18,11 @@ const canvasSize = {
 const pianoStyles = {
   offsetX: 25,
   offsetY: 25,
-}
+};
 
 export class Piano {
-  canvas; ctx;
+  canvas;
+  ctx;
   #abortControllers = [];
 
   constructor() {
@@ -40,8 +45,11 @@ export class Piano {
       const semiTone = new PianoSemiTone(chordRootNumber, semitonePosition);
       semiTone.draw(this.ctx, this.clickCanvas.ctx, isActive);
 
-      this.clickCanvas.registerSemitoneButton(semitonePosition.label, semiTone.invisibleColor);
-    })
+      this.clickCanvas.registerSemitoneButton(
+        semitonePosition.label,
+        semiTone.invisibleColor
+      );
+    });
   }
 
   pianoClickHandler() {
@@ -53,7 +61,7 @@ export class Piano {
         toggleSemitone(clickedSemitone);
         redrawAll();
       }
-    }
+    };
   }
 
   clearEventListeners() {
@@ -65,17 +73,21 @@ export class Piano {
   addClickEventListener() {
     const abortController = new AbortController();
     this.#abortControllers.push(abortController);
-    this.canvas.addEventListener('click', this.pianoClickHandler(), {signal: abortController.signal});
+    this.canvas.addEventListener("click", this.pianoClickHandler(), {
+      signal: abortController.signal,
+    });
   }
 
   draw(state) {
-    const {chordRootNumber, chordQuality, activeTones} = state;
+    const { chordRootNumber, chordQuality, activeTones } = state;
 
     const onPiano = isolatedTranslate(pianoStyles.offsetX, pianoStyles.offsetY);
-    onPiano(this.ctx, () => onPiano(this.clickCanvas.ctx, () => {
-      this.drawPianoKeys(chordRootNumber);
-      this.drawSemitones(chordRootNumber, chordQuality, activeTones);
-    }));
+    onPiano(this.ctx, () =>
+      onPiano(this.clickCanvas.ctx, () => {
+        this.drawPianoKeys(chordRootNumber);
+        this.drawSemitones(chordRootNumber, chordQuality, activeTones);
+      })
+    );
 
     this.clearEventListeners();
     this.addClickEventListener();

@@ -1,4 +1,4 @@
-import {instruments} from "./constants";
+import { instruments } from "./constants";
 
 let state = {
   chordRootNumber: 0,

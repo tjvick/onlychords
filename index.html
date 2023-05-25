@@ -1,175 +1,332 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Only Chords</title>
+    <meta
+      name="description"
+      content="Familiarize yourself with the fretboard"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-  <meta charset="utf-8">
-  <title>Only Chords</title>
-  <meta name="description" content="Familiarize yourself with the fretboard">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="Only Chords" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
 
-  <meta property="og:title" content="Only Chords">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <!-- Place favicon.ico in the root directory -->
 
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="apple-touch-icon" href="icon.png">
-  <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/index.css" />
 
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/index.css">
+    <meta name="theme-color" content="#fafafa" />
+  </head>
 
-  <meta name="theme-color" content="#fafafa">
-</head>
-
-<body>
-  <div class="top-bar">
-    <h1>OnlyChords</h1>
-  </div>
-
-  <form>
-    <fieldset>
-      <div class="circle-of-fifths">
-        <div class="dividing-circle"></div>
-        <div class="quality-label major">
-          <h3>Major</h3>
-        </div>
-        <div class="quality-label minor">
-          <h3>Minor</h3>
-        </div>
-
-        <div class="major">
-          <div class="chord-selection major out2rot0">
-            <input type="radio" id="chord-a-maj" name="chord-option" value="a" onchange="handleChordSelect(this.value, 'major')" checked>
-            <label for="chord-a-maj">A</label>
-          </div>
-          <div class="chord-selection major out2rot30">
-            <input type="radio" id="chord-d-maj" name="chord-option" value="d" onchange="handleChordSelect(this.value, 'major')">
-            <label for="chord-d-maj">D</label>
-          </div>
-          <div class="chord-selection major out2rot60">
-            <input type="radio" id="chord-g-maj" name="chord-option" value="g" onchange="handleChordSelect(this.value, 'major')">
-            <label for="chord-g-maj">G</label>
-          </div>
-          <div class="chord-selection major out2rot90">
-            <input type="radio" id="chord-c-maj" name="chord-option" value="c" onchange="handleChordSelect(this.value, 'major')">
-            <label for="chord-c-maj">C</label>
-          </div>
-          <div class="chord-selection major out2rot120">
-            <input type="radio" id="chord-f-maj" name="chord-option" value="f" onchange="handleChordSelect(this.value, 'major')">
-            <label for="chord-f-maj">F</label>
-          </div>
-          <div class="chord-selection major out2rot150">
-            <input type="radio" id="chord-a-sharp-maj" name="chord-option" value="a-sharp" onchange="handleChordSelect(this.value, 'major')">
-            <label for="chord-a-sharp-maj">B♭</label>
-          </div>
-          <div class="chord-selection major out2rot180">
-            <input type="radio" id="chord-d-sharp-maj" name="chord-option" value="d-sharp" onchange="handleChordSelect(this.value, 'major')">
-            <label for="chord-d-sharp-maj">E♭</label>
-          </div>
-          <div class="chord-selection major out2rot210">
-            <input type="radio" id="chord-g-sharp-maj" name="chord-option" value="g-sharp" onchange="handleChordSelect(this.value, 'major')">
-            <label for="chord-g-sharp-maj">A♭</label>
-          </div>
-          <div class="chord-selection major out2rot240">
-            <input type="radio" id="chord-c-sharp-maj" name="chord-option" value="c-sharp" onchange="handleChordSelect(this.value, 'major')">
-            <label for="chord-c-sharp-maj">D♭</label>
-          </div>
-          <div class="chord-selection major out2rot270">
-            <input type="radio" id="chord-f-sharp-maj" name="chord-option" value="f-sharp" onchange="handleChordSelect(this.value, 'major')">
-            <label for="chord-f-sharp-maj">G♭/F#</label>
-          </div>
-          <div class="chord-selection major out2rot300">
-            <input type="radio" id="chord-b-maj" name="chord-option" value="b" onchange="handleChordSelect(this.value, 'major')">
-            <label for="chord-b-maj">B</label>
-          </div>
-          <div class="chord-selection major out2rot330">
-            <input type="radio" id="chord-e-maj" name="chord-option" value="e" onchange="handleChordSelect(this.value, 'major')">
-            <label for="chord-e-maj">E</label>
-          </div>
-        </div>
-        <div class="minor">
-          <div class="chord-selection minor out1rot0">
-            <input type="radio" id="chord-f-sharp-min" name="chord-option" value="f-sharp" onchange="handleChordSelect(this.value, 'minor')">
-            <label for="chord-f-sharp-min">f#</label>
-          </div>
-          <div class="chord-selection minor out1rot30">
-            <input type="radio" id="chord-b-min" name="chord-option" value="b" onchange="handleChordSelect(this.value, 'minor')">
-            <label for="chord-b-min">b</label>
-          </div>
-          <div class="chord-selection minor out1rot60">
-            <input type="radio" id="chord-e-min" name="chord-option" value="e" onchange="handleChordSelect(this.value, 'minor')">
-            <label for="chord-e-min">e</label>
-          </div>
-          <div class="chord-selection minor out1rot90">
-            <input type="radio" id="chord-a-min" name="chord-option" value="a" onchange="handleChordSelect(this.value, 'minor')">
-            <label for="chord-a-min">a</label>
-          </div>
-          <div class="chord-selection minor out1rot120">
-            <input type="radio" id="chord-d-min" name="chord-option" value="d" onchange="handleChordSelect(this.value, 'minor')">
-            <label for="chord-d-min">d</label>
-          </div>
-          <div class="chord-selection minor out1rot150">
-            <input type="radio" id="chord-g-min" name="chord-option" value="g" onchange="handleChordSelect(this.value, 'minor')">
-            <label for="chord-g-min">g</label>
-          </div>
-          <div class="chord-selection minor out1rot180">
-            <input type="radio" id="chord-c-min" name="chord-option" value="c" onchange="handleChordSelect(this.value, 'minor')">
-            <label for="chord-c-min">c</label>
-          </div>
-          <div class="chord-selection minor out1rot210">
-            <input type="radio" id="chord-f-min" name="chord-option" value="f" onchange="handleChordSelect(this.value, 'minor')">
-            <label for="chord-f-min">f</label>
-          </div>
-          <div class="chord-selection minor out1rot240">
-            <input type="radio" id="chord-a-sharp-min" name="chord-option" value="a-sharp" onchange="handleChordSelect(this.value, 'minor')">
-            <label for="chord-a-sharp-min">b♭</label>
-          </div>
-          <div class="chord-selection minor out1rot270">
-            <input type="radio" id="chord-d-sharp-min" name="chord-option" value="d-sharp" onchange="handleChordSelect(this.value, 'minor')">
-            <label for="chord-d-sharp-min">e♭/d#</label>
-          </div>
-          <div class="chord-selection minor out1rot300">
-            <input type="radio" id="chord-g-sharp-min" name="chord-option" value="g-sharp" onchange="handleChordSelect(this.value, 'minor')">
-            <label for="chord-g-sharp-min">g#</label>
-          </div>
-          <div class="chord-selection minor out1rot330">
-            <input type="radio" id="chord-c-sharp-min" name="chord-option" value="c-sharp" onchange="handleChordSelect(this.value, 'minor')">
-            <label for="chord-c-sharp-min">c#</label>
-          </div>
-        </div>
-      </div>
-    </fieldset>
-    <div class="instrument-selector">
-      <h3 class="legend">Instrument:</h3>
-      <fieldset>
-        <input type="radio" id="instrument-guitar" name="instrument" value="guitar" onchange="handleInstrumentSelect(this.value)" checked>
-        <label for="instrument-guitar">Guitar</label>
-
-        <input type="radio" id="instrument-mandolin" name="instrument" value="mandolin" onchange="handleInstrumentSelect(this.value)">
-        <label for="instrument-mandolin">Mandolin</label>
-      </fieldset>
+  <body>
+    <div class="top-bar">
+      <h1>OnlyChords</h1>
     </div>
-  </form>
 
-  <div class="fretboard-container">
-    <canvas id="fretboard-canvas" role="presentation">
-    </canvas>
-  </div>
+    <form>
+      <fieldset>
+        <div class="circle-of-fifths">
+          <div class="dividing-circle"></div>
+          <div class="quality-label major">
+            <h3>Major</h3>
+          </div>
+          <div class="quality-label minor">
+            <h3>Minor</h3>
+          </div>
 
-  <div class="piano-container">
-    <canvas id="piano-canvas" role="presentation">
-    </canvas>
-  </div>
+          <div class="major">
+            <div class="chord-selection major out2rot0">
+              <input
+                type="radio"
+                id="chord-a-maj"
+                name="chord-option"
+                value="a"
+                onchange="handleChordSelect(this.value, 'major')"
+                checked
+              />
+              <label for="chord-a-maj">A</label>
+            </div>
+            <div class="chord-selection major out2rot30">
+              <input
+                type="radio"
+                id="chord-d-maj"
+                name="chord-option"
+                value="d"
+                onchange="handleChordSelect(this.value, 'major')"
+              />
+              <label for="chord-d-maj">D</label>
+            </div>
+            <div class="chord-selection major out2rot60">
+              <input
+                type="radio"
+                id="chord-g-maj"
+                name="chord-option"
+                value="g"
+                onchange="handleChordSelect(this.value, 'major')"
+              />
+              <label for="chord-g-maj">G</label>
+            </div>
+            <div class="chord-selection major out2rot90">
+              <input
+                type="radio"
+                id="chord-c-maj"
+                name="chord-option"
+                value="c"
+                onchange="handleChordSelect(this.value, 'major')"
+              />
+              <label for="chord-c-maj">C</label>
+            </div>
+            <div class="chord-selection major out2rot120">
+              <input
+                type="radio"
+                id="chord-f-maj"
+                name="chord-option"
+                value="f"
+                onchange="handleChordSelect(this.value, 'major')"
+              />
+              <label for="chord-f-maj">F</label>
+            </div>
+            <div class="chord-selection major out2rot150">
+              <input
+                type="radio"
+                id="chord-a-sharp-maj"
+                name="chord-option"
+                value="a-sharp"
+                onchange="handleChordSelect(this.value, 'major')"
+              />
+              <label for="chord-a-sharp-maj">B♭</label>
+            </div>
+            <div class="chord-selection major out2rot180">
+              <input
+                type="radio"
+                id="chord-d-sharp-maj"
+                name="chord-option"
+                value="d-sharp"
+                onchange="handleChordSelect(this.value, 'major')"
+              />
+              <label for="chord-d-sharp-maj">E♭</label>
+            </div>
+            <div class="chord-selection major out2rot210">
+              <input
+                type="radio"
+                id="chord-g-sharp-maj"
+                name="chord-option"
+                value="g-sharp"
+                onchange="handleChordSelect(this.value, 'major')"
+              />
+              <label for="chord-g-sharp-maj">A♭</label>
+            </div>
+            <div class="chord-selection major out2rot240">
+              <input
+                type="radio"
+                id="chord-c-sharp-maj"
+                name="chord-option"
+                value="c-sharp"
+                onchange="handleChordSelect(this.value, 'major')"
+              />
+              <label for="chord-c-sharp-maj">D♭</label>
+            </div>
+            <div class="chord-selection major out2rot270">
+              <input
+                type="radio"
+                id="chord-f-sharp-maj"
+                name="chord-option"
+                value="f-sharp"
+                onchange="handleChordSelect(this.value, 'major')"
+              />
+              <label for="chord-f-sharp-maj">G♭/F#</label>
+            </div>
+            <div class="chord-selection major out2rot300">
+              <input
+                type="radio"
+                id="chord-b-maj"
+                name="chord-option"
+                value="b"
+                onchange="handleChordSelect(this.value, 'major')"
+              />
+              <label for="chord-b-maj">B</label>
+            </div>
+            <div class="chord-selection major out2rot330">
+              <input
+                type="radio"
+                id="chord-e-maj"
+                name="chord-option"
+                value="e"
+                onchange="handleChordSelect(this.value, 'major')"
+              />
+              <label for="chord-e-maj">E</label>
+            </div>
+          </div>
+          <div class="minor">
+            <div class="chord-selection minor out1rot0">
+              <input
+                type="radio"
+                id="chord-f-sharp-min"
+                name="chord-option"
+                value="f-sharp"
+                onchange="handleChordSelect(this.value, 'minor')"
+              />
+              <label for="chord-f-sharp-min">f#</label>
+            </div>
+            <div class="chord-selection minor out1rot30">
+              <input
+                type="radio"
+                id="chord-b-min"
+                name="chord-option"
+                value="b"
+                onchange="handleChordSelect(this.value, 'minor')"
+              />
+              <label for="chord-b-min">b</label>
+            </div>
+            <div class="chord-selection minor out1rot60">
+              <input
+                type="radio"
+                id="chord-e-min"
+                name="chord-option"
+                value="e"
+                onchange="handleChordSelect(this.value, 'minor')"
+              />
+              <label for="chord-e-min">e</label>
+            </div>
+            <div class="chord-selection minor out1rot90">
+              <input
+                type="radio"
+                id="chord-a-min"
+                name="chord-option"
+                value="a"
+                onchange="handleChordSelect(this.value, 'minor')"
+              />
+              <label for="chord-a-min">a</label>
+            </div>
+            <div class="chord-selection minor out1rot120">
+              <input
+                type="radio"
+                id="chord-d-min"
+                name="chord-option"
+                value="d"
+                onchange="handleChordSelect(this.value, 'minor')"
+              />
+              <label for="chord-d-min">d</label>
+            </div>
+            <div class="chord-selection minor out1rot150">
+              <input
+                type="radio"
+                id="chord-g-min"
+                name="chord-option"
+                value="g"
+                onchange="handleChordSelect(this.value, 'minor')"
+              />
+              <label for="chord-g-min">g</label>
+            </div>
+            <div class="chord-selection minor out1rot180">
+              <input
+                type="radio"
+                id="chord-c-min"
+                name="chord-option"
+                value="c"
+                onchange="handleChordSelect(this.value, 'minor')"
+              />
+              <label for="chord-c-min">c</label>
+            </div>
+            <div class="chord-selection minor out1rot210">
+              <input
+                type="radio"
+                id="chord-f-min"
+                name="chord-option"
+                value="f"
+                onchange="handleChordSelect(this.value, 'minor')"
+              />
+              <label for="chord-f-min">f</label>
+            </div>
+            <div class="chord-selection minor out1rot240">
+              <input
+                type="radio"
+                id="chord-a-sharp-min"
+                name="chord-option"
+                value="a-sharp"
+                onchange="handleChordSelect(this.value, 'minor')"
+              />
+              <label for="chord-a-sharp-min">b♭</label>
+            </div>
+            <div class="chord-selection minor out1rot270">
+              <input
+                type="radio"
+                id="chord-d-sharp-min"
+                name="chord-option"
+                value="d-sharp"
+                onchange="handleChordSelect(this.value, 'minor')"
+              />
+              <label for="chord-d-sharp-min">e♭/d#</label>
+            </div>
+            <div class="chord-selection minor out1rot300">
+              <input
+                type="radio"
+                id="chord-g-sharp-min"
+                name="chord-option"
+                value="g-sharp"
+                onchange="handleChordSelect(this.value, 'minor')"
+              />
+              <label for="chord-g-sharp-min">g#</label>
+            </div>
+            <div class="chord-selection minor out1rot330">
+              <input
+                type="radio"
+                id="chord-c-sharp-min"
+                name="chord-option"
+                value="c-sharp"
+                onchange="handleChordSelect(this.value, 'minor')"
+              />
+              <label for="chord-c-sharp-min">c#</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div class="instrument-selector">
+        <h3 class="legend">Instrument:</h3>
+        <fieldset>
+          <input
+            type="radio"
+            id="instrument-guitar"
+            name="instrument"
+            value="guitar"
+            onchange="handleInstrumentSelect(this.value)"
+            checked
+          />
+          <label for="instrument-guitar">Guitar</label>
 
-  <div class="hidden-container">
-    <canvas id="hit-canvas"></canvas>
-  </div>
+          <input
+            type="radio"
+            id="instrument-mandolin"
+            name="instrument"
+            value="mandolin"
+            onchange="handleInstrumentSelect(this.value)"
+          />
+          <label for="instrument-mandolin">Mandolin</label>
+        </fieldset>
+      </div>
+    </form>
 
-  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
-  <script src="js/plugins.js"></script>
-  <script type="module" src="js/main.js"></script>
-</body>
+    <div class="fretboard-container">
+      <canvas id="fretboard-canvas" role="presentation"> </canvas>
+    </div>
 
+    <div class="piano-container">
+      <canvas id="piano-canvas" role="presentation"> </canvas>
+    </div>
+
+    <div class="hidden-container">
+      <canvas id="hit-canvas"></canvas>
+    </div>
+
+    <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script type="module" src="js/main.js"></script>
+  </body>
 </html>

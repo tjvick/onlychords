@@ -9,8 +9,9 @@ Visit https://onlychords.com
 This project uses Node.js and npm.
 
 ### Install Dependencies
+
 `npm install`
 
 ### Run Development Server
-`npm run dev`
 
+`npm run dev`

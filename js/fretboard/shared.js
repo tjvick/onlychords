@@ -10,6 +10,6 @@ export const fretboardStyles = {
 export function getFretPosition(fretNumber) {
   const frequencyRatio = 2 ** (fretNumber / 12);
   const lengthRatio = 1 / frequencyRatio;
-  const fretPosition = fretboardStyles.stringLength * (1 - lengthRatio)
+  const fretPosition = fretboardStyles.stringLength * (1 - lengthRatio);
   return Math.floor(fretPosition);
 }

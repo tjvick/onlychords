@@ -1,23 +1,23 @@
-import state from './shared/state';
-import {instruments} from "./shared/constants";
-import {redrawAll, redrawFretboard} from "./shared/commands";
+import state from "./shared/state";
+import { instruments } from "./shared/constants";
+import { redrawAll, redrawFretboard } from "./shared/commands";
 
 redrawAll();
 
 const chordRootNumbers = {
-  "a": 0,
+  a: 0,
   "a-sharp": 1,
-  "b": 2,
-  "c": 3,
+  b: 2,
+  c: 3,
   "c-sharp": 4,
-  "d": 5,
+  d: 5,
   "d-sharp": 6,
-  "e": 7,
-  "f": 8,
+  e: 7,
+  f: 8,
   "f-sharp": 9,
-  "g": 10,
-  "g-sharp": 11
-}
+  g: 10,
+  "g-sharp": 11,
+};
 function handleChordSelect(chordRoot, interval) {
   if (chordRootNumbers.hasOwnProperty(chordRoot)) {
     state.chordRootNumber = chordRootNumbers[chordRoot];

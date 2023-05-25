@@ -1,13 +1,14 @@
-import {pianoKeyStyles} from "./pianoKey";
-import {toneColors} from "../shared/theme";
-import {drawEllipse, getRandomColor, isolate} from "../shared/utils";
+import { pianoKeyStyles } from "./pianoKey";
+import { toneColors } from "../shared/theme";
+import { drawEllipse, getRandomColor, isolate } from "../shared/utils";
 
 export class PianoSemiTone {
   constructor(rootKeyIndex, chordSemitone) {
     this.label = chordSemitone.label;
 
-    const keyIndex = rootKeyIndex + chordSemitone.position
-    this.xPosition = (keyIndex * pianoKeyStyles.keyWidth) + pianoKeyStyles.keyWidth / 2;
+    const keyIndex = rootKeyIndex + chordSemitone.position;
+    this.xPosition =
+      keyIndex * pianoKeyStyles.keyWidth + pianoKeyStyles.keyWidth / 2;
     this.yPosition = pianoKeyStyles.keyHeight + 20;
 
     this.invisibleColor = getRandomColor();
@@ -20,7 +21,14 @@ export class PianoSemiTone {
   }
 
   drawInvisibleShape(ctx) {
-    drawEllipse(ctx, this.xPosition, this.yPosition, 3, this.invisibleColor, this.invisibleColor);
+    drawEllipse(
+      ctx,
+      this.xPosition,
+      this.yPosition,
+      3,
+      this.invisibleColor,
+      this.invisibleColor
+    );
   }
 
   drawShape(visibleCtx, invisibleCtx, isActive) {
@@ -32,10 +40,10 @@ export class PianoSemiTone {
     isolate(ctx, () => {
       ctx.font = "16px serif";
       ctx.textAlign = "center";
-      ctx.textBaseline = "middle"
-      ctx.fillStyle = "rgb(0, 0, 0)"
-      ctx.fillText(this.label, this.xPosition, this.yPosition + 2)
-    })
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "rgb(0, 0, 0)";
+      ctx.fillText(this.label, this.xPosition, this.yPosition + 2);
+    });
   }
 
   draw(visibleCtx, invisibleCtx, isActive) {
