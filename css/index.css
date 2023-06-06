@@ -10,6 +10,28 @@
   text-align: center;
 }
 
+.hidden-container {
+  display: none;
+}
+
+.circle-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 40px;
+}
+
+#circle-canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+#circle-click-canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
 .fretboard-container {
   width: 100%;
   max-width: 1200px;
@@ -34,10 +56,6 @@
   display: block;
   width: 1200px;
   height: 150px;
-}
-
-.hidden-container {
-  display: none;
 }
 
 #hit-canvas {
