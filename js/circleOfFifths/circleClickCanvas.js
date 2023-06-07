@@ -10,8 +10,8 @@ export class CircleClickCanvas {
     [this.canvas, this.ctx] = constructScaledCanvas("circle-click-canvas", canvasSize);
   }
 
-  registerKeyButton(label, color) {
-    this.hitMap[color] = label;
+  registerKeyButton(color, chordRootNumber, chordQuality) {
+    this.hitMap[color] = {chordRootNumber, chordQuality};
   }
 
   getClickedKey(event) {

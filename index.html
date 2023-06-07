@@ -39,6 +39,19 @@
     </div>
 
     <form>
+      <div class="chords-in-key-toggler">
+        <input
+          type="checkbox"
+          id="chords-in-key"
+          name="chords-in-key"
+          value="0"
+          onchange="handleChordsInKeyToggle(this)"
+        />
+        <label for="chords-in-key">Show Chords in Key</label>
+      </div>
+    </form>
+
+    <form>
       <div class="instrument-selector">
         <h3 class="legend">Instrument:</h3>
         <fieldset>

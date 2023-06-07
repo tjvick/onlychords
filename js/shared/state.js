@@ -5,6 +5,7 @@ let state = {
   chordQuality: "major",
   instrument: instruments["guitar"],
   activeTones: new Set(["R", "3", "5"]),
+  showChordsInKey: true,
 };
 
 export default state;
