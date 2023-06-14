@@ -7,19 +7,24 @@ export class CircleClickCanvas {
 
   constructor(canvasSize) {
     this.canvasSize = canvasSize;
-    [this.canvas, this.ctx] = constructScaledCanvas("circle-click-canvas", canvasSize);
+    [this.canvas, this.ctx] = constructScaledCanvas(
+      "circle-click-canvas",
+      canvasSize
+    );
   }
 
   registerKeyButton(color, chordRootNumber, chordQuality) {
-    this.hitMap[color] = {chordRootNumber, chordQuality};
+    this.hitMap[color] = { chordRootNumber, chordQuality };
   }
 
   getClickedKey(event) {
     const canvasBox = event.target.getBoundingClientRect();
     const boxX = event.clientX - canvasBox.left;
     const boxY = event.clientY - canvasBox.top;
-    const canvasX = boxX * this.canvasSize.width / (canvasBox.right - canvasBox.left);
-    const canvasY = boxY * this.canvasSize.height / (canvasBox.bottom - canvasBox.top);
+    const canvasX =
+      (boxX * this.canvasSize.width) / (canvasBox.right - canvasBox.left);
+    const canvasY =
+      (boxY * this.canvasSize.height) / (canvasBox.bottom - canvasBox.top);
     const pixel = this.ctx.getImageData(
       canvasX * this.canvasSize.scaleFactor,
       canvasY * this.canvasSize.scaleFactor,

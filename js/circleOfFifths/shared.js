@@ -5,4 +5,4 @@ export const circleStyles = {
   innerRadius: 120,
   middleRadius: 170,
   outerRadius: 220,
-}
+};

@@ -1,6 +1,6 @@
 import state from "./shared/state";
 import { instruments } from "./shared/constants";
-import {redrawAll, redrawCircle, redrawFretboard} from "./shared/commands";
+import { redrawAll, redrawCircle, redrawFretboard } from "./shared/commands";
 
 redrawAll();
 redrawCircle();

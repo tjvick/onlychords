@@ -1,12 +1,11 @@
-import {isolate} from "../shared/utils";
-import {circleStyles} from "./shared";
-import {pianoKeyStyles} from "../piano/pianoKey";
+import { isolate } from "../shared/utils";
+import { circleStyles } from "./shared";
 
 export class DonutSlice {
   semiArcLength = Math.PI / 12;
 
   constructor(positionIndex, innerRadius, outerRadius) {
-    this.angle = positionIndex * 2 * Math.PI / 12;
+    this.angle = (positionIndex * 2 * Math.PI) / 12;
     this.innerRadius = innerRadius;
     this.outerRadius = outerRadius;
     this.textRadius = (innerRadius + outerRadius) / 2;
@@ -17,15 +16,32 @@ export class DonutSlice {
       const arcStartAngle = this.angle - this.semiArcLength;
       const arcEndAngle = this.angle + this.semiArcLength;
       ctx.beginPath();
-      ctx.arc(circleStyles.centerX, circleStyles.centerY, this.innerRadius, arcStartAngle, arcEndAngle);
-      const outerPointX = this.outerRadius * Math.cos(arcEndAngle) + circleStyles.centerX;
-      const outerPointY = this.outerRadius * Math.sin(arcEndAngle) + circleStyles.centerY;
+      ctx.arc(
+        circleStyles.centerX,
+        circleStyles.centerY,
+        this.innerRadius,
+        arcStartAngle,
+        arcEndAngle
+      );
+      const outerPointX =
+        this.outerRadius * Math.cos(arcEndAngle) + circleStyles.centerX;
+      const outerPointY =
+        this.outerRadius * Math.sin(arcEndAngle) + circleStyles.centerY;
       ctx.lineTo(outerPointX, outerPointY);
-      ctx.arc(circleStyles.centerX, circleStyles.centerY, this.outerRadius, arcEndAngle, arcStartAngle, true);
-      const innerPointX = this.innerRadius * Math.cos(arcStartAngle) + circleStyles.centerX;
-      const innerPointY = this.innerRadius * Math.sin(arcStartAngle) + circleStyles.centerY;
+      ctx.arc(
+        circleStyles.centerX,
+        circleStyles.centerY,
+        this.outerRadius,
+        arcEndAngle,
+        arcStartAngle,
+        true
+      );
+      const innerPointX =
+        this.innerRadius * Math.cos(arcStartAngle) + circleStyles.centerX;
+      const innerPointY =
+        this.innerRadius * Math.sin(arcStartAngle) + circleStyles.centerY;
       ctx.lineTo(innerPointX, innerPointY);
-    })
+    });
   }
 
   fill(ctx, fillStyle) {
@@ -33,7 +49,7 @@ export class DonutSlice {
       this.buildPath(ctx);
       ctx.fillStyle = fillStyle;
       ctx.fill();
-    })
+    });
   }
 
   outline(ctx, lineWidth, strokeStyle) {
@@ -42,7 +58,7 @@ export class DonutSlice {
       ctx.lineWidth = lineWidth;
       ctx.strokeStyle = strokeStyle;
       ctx.stroke();
-    })
+    });
   }
 
   label(ctx, labelLines, fonts, fillStyle) {
@@ -58,8 +74,24 @@ export class DonutSlice {
 
       labelLines.forEach((labelLine, ixLine) => {
         ctx.font = fonts[ixLine];
-        ctx.fillText(labelLine, x, top + ixLine*textHeight);
-      })
-    })
+        ctx.fillText(labelLine, x, top + ixLine * textHeight);
+      });
+    });
+  }
+
+  superscript(ctx, text, font, fillStyle) {
+    isolate(ctx, () => {
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillSTyle = fillStyle;
+      ctx.font = font;
+      const superscriptAngle = this.angle + this.semiArcLength - Math.PI / 44;
+      const superscriptRadius = this.outerRadius - 12;
+      const x =
+        superscriptRadius * Math.cos(superscriptAngle) + circleStyles.centerX;
+      const y =
+        superscriptRadius * Math.sin(superscriptAngle) + circleStyles.centerY;
+      ctx.fillText(text, x, y);
+    });
   }
 }

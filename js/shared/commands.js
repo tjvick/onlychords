@@ -1,7 +1,7 @@
 import state from "./state";
 import { Piano } from "../piano/piano";
 import { Fretboard } from "../fretboard/fretboard";
-import {CircleOfFifths} from "../circleOfFifths/circle";
+import { CircleOfFifths } from "../circleOfFifths/circle";
 
 export function redrawAll() {
   new Piano().draw(state);

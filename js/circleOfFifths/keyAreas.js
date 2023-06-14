@@ -1,11 +1,19 @@
-import {notes} from "../shared/constants";
-import {circleStyles} from "./shared";
-import {DonutSlice} from "./donutSlice";
-import {KeyAreaLabel} from "./keyAreaLabel";
+import { notes } from "../shared/constants";
+import { circleStyles } from "./shared";
+import { DonutSlice } from "./donutSlice";
+import { KeyAreaLabel } from "./keyAreaLabel";
 
 class KeyArea {
-  constructor(positionIndex, innerRadius, outerRadius, keyAreaLabel, fonts) {
+  constructor(
+    positionIndex,
+    innerRadius,
+    outerRadius,
+    keyAreaLabel,
+    fonts,
+    superscriptFont
+  ) {
     this.fonts = fonts;
+    this.superscriptFont = superscriptFont;
     this.keyAreaLabel = keyAreaLabel;
     this.donutSlice = new DonutSlice(positionIndex, innerRadius, outerRadius);
   }
@@ -22,37 +30,87 @@ class KeyArea {
     this.donutSlice.outline(ctx, "2", "lightgray");
   }
 
-  writeLabel(ctx, fillStyle="black") {
-    this.donutSlice.label(ctx, this.keyAreaLabel.getLabels(), this.fonts, fillStyle)
+  writeLabel(ctx, fillStyle = "black") {
+    this.donutSlice.label(
+      ctx,
+      this.keyAreaLabel.getLabels(),
+      this.fonts,
+      fillStyle
+    );
+  }
+
+  writeCornerNumber(ctx, fillStyle = "black") {
+    this.donutSlice.superscript(
+      ctx,
+      this.keyAreaLabel.getRelativeToneNumber(),
+      this.superscriptFont,
+      fillStyle
+    );
   }
 }
 
 export class MajorKeyArea extends KeyArea {
-  constructor(chordRootNumber) {
+  constructor(chordRootNumber, nSemitonesFromRoot) {
     const positionIndex = (chordRootNumber * 7) % 12;
     const note = notes[chordRootNumber % 12];
-    const keyAreaLabel = new KeyAreaLabel(chordRootNumber, positionIndex, "major");
-    super(positionIndex, circleStyles.middleRadius, circleStyles.outerRadius, keyAreaLabel, ["24px serif"]);
+    const keyAreaLabel = new KeyAreaLabel(
+      chordRootNumber,
+      positionIndex,
+      "major",
+      nSemitonesFromRoot
+    );
+    super(
+      positionIndex,
+      circleStyles.middleRadius,
+      circleStyles.outerRadius,
+      keyAreaLabel,
+      ["24px serif"],
+      "14px serif"
+    );
     this.note = note;
   }
 }
 
 export class MinorKeyArea extends KeyArea {
-  constructor(chordRootNumber) {
+  constructor(chordRootNumber, nSemitonesFromRoot) {
     const positionIndex = (9 + chordRootNumber * 7) % 12;
     const note = notes[chordRootNumber % 12];
-    const keyAreaLabel = new KeyAreaLabel(chordRootNumber, positionIndex, "minor");
-    super(positionIndex, circleStyles.innerRadius, circleStyles.middleRadius, keyAreaLabel, ["21px serif"]);
+    const keyAreaLabel = new KeyAreaLabel(
+      chordRootNumber,
+      positionIndex,
+      "minor",
+      nSemitonesFromRoot
+    );
+    super(
+      positionIndex,
+      circleStyles.innerRadius,
+      circleStyles.middleRadius,
+      keyAreaLabel,
+      ["21px serif"],
+      "14px serif"
+    );
     this.note = note;
   }
 }
 
 export class DiminishedKeyArea extends KeyArea {
-  constructor(chordRootNumber) {
+  constructor(chordRootNumber, nSemitonesFromRoot) {
     const positionIndex = (7 + chordRootNumber * 7) % 12;
     const note = notes[chordRootNumber % 12];
-    const keyAreaLabel = new KeyAreaLabel(chordRootNumber, positionIndex, "diminished");
-    super(positionIndex, circleStyles.innerInnerRadius, circleStyles.innerRadius, keyAreaLabel,["18px serif", "15px serif"]);
+    const keyAreaLabel = new KeyAreaLabel(
+      chordRootNumber,
+      positionIndex,
+      "diminished",
+      nSemitonesFromRoot
+    );
+    super(
+      positionIndex,
+      circleStyles.innerInnerRadius,
+      circleStyles.innerRadius,
+      keyAreaLabel,
+      ["18px serif", "15px serif"],
+      "14px serif"
+    );
     this.note = note;
   }
 }

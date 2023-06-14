@@ -39,15 +39,18 @@
     </div>
 
     <form>
-      <div class="chords-in-key-toggler">
+      <div class="chords-in-key-toggle">
         <input
           type="checkbox"
           id="chords-in-key"
           name="chords-in-key"
           value="0"
           onchange="handleChordsInKeyToggle(this)"
+          checked
         />
-        <label for="chords-in-key">Show Chords in Key</label>
+        <label for="chords-in-key"
+          >Highlight other chords in the chosen key</label
+        >
       </div>
     </form>
 
