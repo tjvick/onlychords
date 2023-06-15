@@ -1,7 +1,7 @@
 .top-bar {
   background-color: rgb(0, 90, 0);
   padding: 10px 0;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   color: white;
 }
 
@@ -17,7 +17,7 @@
 .circle-container {
   width: 100%;
   max-width: 500px;
-  margin: 0 auto;
+  margin: 0 auto 10px;
 }
 
 #circle-canvas {

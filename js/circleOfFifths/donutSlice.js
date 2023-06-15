@@ -95,7 +95,7 @@ export class DonutSlice {
       ctx.textBaseline = "middle";
       ctx.fillSTyle = fillStyle;
       ctx.font = font;
-      const superscriptAngle = this.angle + this.semiArcLength - Math.PI / 44;
+      const superscriptAngle = this.angle + this.semiArcLength - Math.PI / 42;
       const superscriptRadius = this.outerRadius - 12;
       const x =
         superscriptRadius * Math.cos(superscriptAngle) + circleStyles.centerX;
