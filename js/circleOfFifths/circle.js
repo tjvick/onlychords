@@ -18,11 +18,25 @@ export class CircleOfFifths {
   abortControllers = [];
 
   constructor() {
+    console.log("Newing up a circle");
     [this.canvas, this.ctx] = constructScaledCanvas(
       "circle-canvas",
       canvasSize
     );
     this.clickCanvas = new CircleClickCanvas(canvasSize);
+  }
+
+  shadeKeyAreas(ctx) {
+    circlePositionIndices.forEach((ix) => {
+      const majorKeyArea = new MajorKeyArea(ix);
+      majorKeyArea.shade(ctx, "white");
+
+      const minorKeyArea = new MinorKeyArea(ix);
+      minorKeyArea.shade(ctx, "white");
+
+      const diminishedKeyArea = new DiminishedKeyArea(ix);
+      diminishedKeyArea.shade(ctx, "white");
+    });
   }
 
   drawKeyAreas(ctx) {
@@ -141,8 +155,9 @@ export class CircleOfFifths {
 
   addClickEventListener() {
     const abortController = new AbortController();
-    console.log("adding abort controller");
+    console.log("adding an abort controller");
     this.abortControllers.push(abortController);
+    console.log(this.abortControllers);
     console.log("adding click event listener");
     this.canvas.addEventListener("click", this.circleClickHandler(), {
       signal: abortController.signal,
@@ -152,6 +167,7 @@ export class CircleOfFifths {
   draw(state) {
     const { chordRootNumber, chordQuality, showChordsInKey } = state;
 
+    this.shadeKeyAreas(this.ctx);
     this.fillActiveKey(
       this.ctx,
       chordRootNumber,
