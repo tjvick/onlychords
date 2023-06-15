@@ -13,6 +13,10 @@ export class CircleClickCanvas {
     );
   }
 
+  clear() {
+    this.hitMap = {};
+  }
+
   registerKeyButton(color, chordRootNumber, chordQuality) {
     this.hitMap[color] = { chordRootNumber, chordQuality };
   }

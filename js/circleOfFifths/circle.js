@@ -167,6 +167,8 @@ export class CircleOfFifths {
   draw(state) {
     const { chordRootNumber, chordQuality, showChordsInKey } = state;
 
+    this.clickCanvas.clear();
+
     this.shadeKeyAreas(this.ctx);
     this.fillActiveKey(
       this.ctx,
