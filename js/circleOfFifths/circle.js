@@ -18,7 +18,6 @@ export class CircleOfFifths {
   abortControllers = [];
 
   constructor() {
-    console.log("Newing up a circle");
     [this.canvas, this.ctx] = constructScaledCanvas(
       "circle-canvas",
       canvasSize
@@ -128,37 +127,26 @@ export class CircleOfFifths {
   circleClickHandler() {
     const clickCanvas = this.clickCanvas;
 
-    console.log("returning click handler");
     return function handleCircleClick(event) {
-      console.log("handling an event");
-      console.log(event);
       const clickedKey = clickCanvas.getClickedKey(event);
-      console.log({clickedKey: clickedKey})
       if (clickedKey) {
         const { chordRootNumber, chordQuality } = clickedKey;
-        console.log({chordRootNumber, chordQuality});
         state.chordQuality = chordQuality;
         state.chordRootNumber = chordRootNumber;
-        console.log("redrawing all");
         redrawAll();
       }
     };
   }
 
   clearEventListeners() {
-    console.log({nAbortControllers: this.abortControllers.length})
     while (this.abortControllers.length > 0) {
-      console.log("clearing abort controller");
       this.abortControllers.pop().abort();
     }
   }
 
   addClickEventListener() {
     const abortController = new AbortController();
-    console.log("adding an abort controller");
     this.abortControllers.push(abortController);
-    console.log(this.abortControllers);
-    console.log("adding click event listener");
     this.canvas.addEventListener("click", this.circleClickHandler(), {
       signal: abortController.signal,
     });

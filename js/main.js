@@ -37,7 +37,6 @@ function handleInstrumentSelect(instrumentName) {
 }
 
 function handleChordsInKeyToggle(toggleElement) {
-  console.log(toggleElement.checked);
   state.showChordsInKey = toggleElement.checked;
   redrawCircle();
 }

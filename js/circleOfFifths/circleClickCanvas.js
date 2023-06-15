@@ -1,4 +1,5 @@
 import { constructScaledCanvas } from "../shared/utils";
+import { isBrave } from "../shared/global";
 
 export class CircleClickCanvas {
   canvas;
@@ -11,6 +12,31 @@ export class CircleClickCanvas {
       "circle-click-canvas",
       canvasSize
     );
+  }
+
+  matchHitMapWithinTolerance(r, g, b) {
+    const clickedColor = `rgb(${r},${g},${b})`;
+
+    if (this.hitMap[clickedColor]) {
+      return this.hitMap[clickedColor];
+    }
+
+    const matchingRGBs = [];
+    [-1, 0, 1].forEach((dr) => {
+      [-1, 0, 1].forEach((dg) => {
+        [-1, 0, 1].forEach((db) => {
+          const rgbString = `rgb(${r+dr},${g+dg},${b+db})`
+          if (rgbString in this.hitMap) {
+            matchingRGBs.push(rgbString);
+          }
+        })
+      })
+    })
+
+    console.log({matchingRGBs});
+    if (matchingRGBs.length === 1) {
+      return this.hitMap[matchingRGBs[0]];
+    }
   }
 
   clear() {
@@ -38,15 +64,12 @@ export class CircleClickCanvas {
     ).data;
     const clickedColor = `rgb(${pixel[0]},${pixel[1]},${pixel[2]})`;
     console.log({
-      canvasBox,
-      boxX,
-      boxY,
-      canvasX,
-      canvasY,
-      pixel,
       clickedColor
     })
     console.log(this.hitMap);
+    if (isBrave) {
+      return this.matchHitMapWithinTolerance(pixel[0], pixel[1], pixel[2]);
+    }
     return this.hitMap[clickedColor] || null;
   }
 }
