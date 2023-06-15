@@ -64,7 +64,7 @@ export class MajorKeyArea extends KeyArea {
       circleStyles.middleRadius,
       circleStyles.outerRadius,
       keyAreaLabel,
-      ["26px serif"],
+      ["25px serif"],
       "15px serif"
     );
     this.note = note;
@@ -86,7 +86,7 @@ export class MinorKeyArea extends KeyArea {
       circleStyles.innerRadius,
       circleStyles.middleRadius,
       keyAreaLabel,
-      ["23px serif"],
+      ["21px serif"],
       "15px serif"
     );
     this.note = note;
@@ -108,7 +108,7 @@ export class DiminishedKeyArea extends KeyArea {
       circleStyles.innerInnerRadius,
       circleStyles.innerRadius,
       keyAreaLabel,
-      ["20px serif", "16px serif"],
+      ["19px serif", "16px serif"],
       "15px serif"
     );
     this.note = note;

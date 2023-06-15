@@ -78,8 +78,8 @@ export class DonutSlice {
         ctx.font = fonts[ixLine];
         if (isChrome) {
           if (labelLine.includes("♭")) {
-            labelLine = labelLine.replace("♭", " ♭ ").trim();
-            ctx.wordSpacing = "-10px";
+            labelLine = labelLine.replace("♭", " ♭ ");
+            ctx.wordSpacing = "-0.5em";
           } else {
             ctx.wordSpacing = "0px";
           }
