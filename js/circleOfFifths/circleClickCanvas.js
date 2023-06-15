@@ -18,6 +18,7 @@ export class CircleClickCanvas {
   }
 
   getClickedKey(event) {
+    console.log("Attempting to get clicked key");
     const canvasBox = event.target.getBoundingClientRect();
     const boxX = event.clientX - canvasBox.left;
     const boxY = event.clientY - canvasBox.top;
@@ -32,6 +33,15 @@ export class CircleClickCanvas {
       1
     ).data;
     const clickedColor = `rgb(${pixel[0]},${pixel[1]},${pixel[2]})`;
+    console.log({
+      canvasBox,
+      boxX,
+      boxY,
+      canvasX,
+      canvasY,
+      pixel,
+      clickedColor
+    })
     return this.hitMap[clickedColor] || null;
   }
 }
