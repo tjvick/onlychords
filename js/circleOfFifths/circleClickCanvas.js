@@ -42,6 +42,7 @@ export class CircleClickCanvas {
       pixel,
       clickedColor
     })
+    console.log(this.hitMap);
     return this.hitMap[clickedColor] || null;
   }
 }
