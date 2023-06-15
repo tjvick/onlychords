@@ -1,5 +1,6 @@
 import { isolate } from "../shared/utils";
 import { circleStyles } from "./shared";
+import {isChrome} from "../shared/global";
 
 export class DonutSlice {
   semiArcLength = Math.PI / 12;
@@ -66,6 +67,7 @@ export class DonutSlice {
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillStyle = fillStyle;
+      ctx.letterSpacing = "0px";
       const x = this.textRadius * Math.cos(this.angle) + circleStyles.centerX;
       const y = this.textRadius * Math.sin(this.angle) + circleStyles.centerY;
       const nLines = labelLines.length;
@@ -74,6 +76,14 @@ export class DonutSlice {
 
       labelLines.forEach((labelLine, ixLine) => {
         ctx.font = fonts[ixLine];
+        if (isChrome) {
+          if (labelLine.includes("♭")) {
+            labelLine = labelLine.replace("♭", " ♭ ").trim();
+            ctx.wordSpacing = "-10px"
+          } else {
+            ctx.wordSpacing = "0px";
+          }
+        }
         ctx.fillText(labelLine, x, top + ixLine * textHeight);
       });
     });
