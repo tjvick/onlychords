@@ -79,7 +79,7 @@ export class DonutSlice {
         if (isChrome) {
           if (labelLine.includes("♭")) {
             labelLine = labelLine.replace("♭", " ♭ ").trim();
-            ctx.wordSpacing = "-10px"
+            ctx.wordSpacing = "-10px";
           } else {
             ctx.wordSpacing = "0px";
           }
