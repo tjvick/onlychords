@@ -4,7 +4,7 @@ let state = {
   chordRootNumber: 3,
   chordQuality: "major",
   instrument: instruments["guitar"],
-  activeTones: new Set(["R", "3", "5"]),
+  activeTones: new Set([0, 4, 7]),
   showChordsInKey: true,
 };
 

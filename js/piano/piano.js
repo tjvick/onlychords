@@ -1,4 +1,4 @@
-import { chordSemitones } from "../shared/constants";
+import {allSemitones} from "../shared/constants";
 import {
   constructScaledCanvas,
   isolatedTranslate,
@@ -38,16 +38,16 @@ export class Piano {
     }
   }
 
-  drawSemitones(chordRootNumber, chordQuality, activeTones) {
-    chordSemitones[chordQuality].forEach((semitonePosition) => {
-      const isActive = activeTones.has(semitonePosition.label);
+  drawSemitones(chordRootNumber, activeTones) {
+    allSemitones.forEach((semitone) => {
+      const isActive = activeTones.has(semitone.position);
 
-      const semiTone = new PianoSemiTone(chordRootNumber, semitonePosition);
-      semiTone.draw(this.ctx, this.clickCanvas.ctx, isActive);
+      const pianoSemitone = new PianoSemiTone(chordRootNumber, semitone);
+      pianoSemitone.draw(this.ctx, this.clickCanvas.ctx, isActive);
 
       this.clickCanvas.registerSemitoneButton(
-        semitonePosition.label,
-        semiTone.invisibleColor
+        semitone.position,
+        pianoSemitone.invisibleColor
       );
     });
   }
@@ -56,9 +56,9 @@ export class Piano {
     const clickCanvas = this.clickCanvas;
 
     return function handlePianoClick(event) {
-      const clickedSemitone = clickCanvas.getClickedSemitone(event);
-      if (clickedSemitone) {
-        toggleSemitone(clickedSemitone);
+      const clickedSemitonePosition = clickCanvas.getClickedSemitone(event);
+      if (clickedSemitonePosition !== null) {
+        toggleSemitone(clickedSemitonePosition);
         redrawAll();
       }
     };
@@ -79,13 +79,13 @@ export class Piano {
   }
 
   draw(state) {
-    const { chordRootNumber, chordQuality, activeTones } = state;
+    const { chordRootNumber, activeTones } = state;
 
     const onPiano = isolatedTranslate(pianoStyles.offsetX, pianoStyles.offsetY);
     onPiano(this.ctx, () =>
       onPiano(this.clickCanvas.ctx, () => {
         this.drawPianoKeys(chordRootNumber);
-        this.drawSemitones(chordRootNumber, chordQuality, activeTones);
+        this.drawSemitones(chordRootNumber, activeTones);
       })
     );
 

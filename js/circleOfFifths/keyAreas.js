@@ -2,6 +2,7 @@ import { notes } from "../shared/constants";
 import { circleStyles } from "./shared";
 import { DonutSlice } from "./donutSlice";
 import { KeyAreaLabel } from "./keyAreaLabel";
+import {circleFillColors} from "../shared/theme";
 
 class KeyArea {
   constructor(
@@ -19,15 +20,15 @@ class KeyArea {
   }
 
   highlight(ctx) {
-    this.donutSlice.fill(ctx, "green");
+    this.donutSlice.fill(ctx, circleFillColors.active);
   }
 
   shade(ctx, fillStyle) {
     this.donutSlice.fill(ctx, fillStyle);
   }
 
-  drawBorder(ctx) {
-    this.donutSlice.outline(ctx, "2", "lightgray");
+  drawBorder(ctx, strokeStyle="lightgray") {
+    this.donutSlice.outline(ctx, "2", strokeStyle);
   }
 
   writeLabel(ctx, fillStyle = "black") {

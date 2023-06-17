@@ -63,3 +63,12 @@ export function toggleSemitone(clickedSemitone) {
     state.activeTones.add(clickedSemitone);
   }
 }
+
+export function setQuality(chordQuality) {
+  if (state.chordQuality !== chordQuality) {
+    state.chordQuality = chordQuality;
+    state.activeTones = chordQuality === 'major'
+      ? new Set([0, 4, 7])
+      : new Set([0, 3, 7]);
+  }
+}

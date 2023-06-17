@@ -1,4 +1,4 @@
-import { chordSemitones } from "../shared/constants";
+import {allSemitones} from "../shared/constants";
 import { constructScaledCanvas, isolatedTranslate } from "../shared/utils";
 import { getFretboardString } from "./fretboardString";
 import { fretboardStyles } from "./shared";
@@ -40,10 +40,10 @@ export class Fretboard {
     }
   }
 
-  drawSemitones(chordRootNumber, chordQuality, activeTones) {
+  drawSemitones(chordRootNumber, activeTones) {
     activeTones.forEach((activeTone) => {
-      const semitone = chordSemitones[chordQuality].find(
-        (note) => note.label === activeTone
+      const semitone = allSemitones.find(
+        (note) => note.position === activeTone
       );
       const fretboardSemitone = new FretboardSemitone(
         this.instrument,
@@ -55,7 +55,7 @@ export class Fretboard {
   }
 
   draw(state) {
-    const { chordRootNumber, chordQuality, activeTones } = state;
+    const { chordRootNumber, activeTones } = state;
 
     const onFretboard = isolatedTranslate(
       fretboardStyles.offsetX,
@@ -64,7 +64,7 @@ export class Fretboard {
     onFretboard(this.ctx, () => {
       this.drawStrings();
       this.drawFrets();
-      this.drawSemitones(chordRootNumber, chordQuality, activeTones);
+      this.drawSemitones(chordRootNumber, activeTones);
     });
   }
 }

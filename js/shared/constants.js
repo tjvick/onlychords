@@ -14,28 +14,20 @@ export const instruments = {
   },
 };
 
-export const chordSemitones = {
-  major: [
-    { label: "R", position: 0 },
-    { label: "2", position: 2 },
-    { label: "3", position: 4 },
-    { label: "4", position: 5 },
-    { label: "5", position: 7 },
-    { label: "6", position: 9 },
-    { label: "7", position: 11 },
-    { label: "R", position: 12 },
-  ],
-  minor: [
-    { label: "R", position: 0 },
-    { label: "2", position: 2 },
-    { label: "3", position: 3 },
-    { label: "4", position: 5 },
-    { label: "5", position: 7 },
-    { label: "6", position: 8 },
-    { label: "7", position: 10 },
-    { label: "R", position: 12 },
-  ],
-};
+export const allSemitones = [
+  { label: "R", position: 0},
+  { label: "m2", position: 1},
+  { label: "M2", position: 2},
+  { label: "m3", position: 3},
+  { label: "M3", position: 4},
+  { label: "P4", position: 5},
+  { label: "TT", position: 6},
+  { label: "P5", position: 7},
+  { label: "m6", position: 8},
+  { label: "M6", position: 9},
+  { label: "m7", position: 10},
+  { label: "M7", position: 11},
+]
 
 export const notes = [
   {

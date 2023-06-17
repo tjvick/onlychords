@@ -10,8 +10,8 @@ export class PianoClickCanvas {
     [this.canvas, this.ctx] = constructScaledCanvas("hit-canvas", canvasSize);
   }
 
-  registerSemitoneButton(chordPositionLabel, color) {
-    this.#hitMap[color] = chordPositionLabel;
+  registerSemitoneButton(semitonePosition, color) {
+    this.#hitMap[color] = semitonePosition;
   }
 
   getClickedSemitone(event) {
@@ -25,6 +25,9 @@ export class PianoClickCanvas {
       1
     ).data;
     const clickedColor = `rgb(${pixel[0]},${pixel[1]},${pixel[2]})`;
-    return this.#hitMap[clickedColor] || null;
+    if (clickedColor in this.#hitMap) {
+      return this.#hitMap[clickedColor];
+    }
+    return null;
   }
 }

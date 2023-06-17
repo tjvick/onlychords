@@ -16,7 +16,7 @@ export class PianoSemiTone {
 
   drawVisibleShape(ctx, isActive) {
     const fillStyle = isActive ? toneColors[this.label] : "lightgray";
-    const strokeStyle = isActive ? "black" : "gray";
+    const strokeStyle = isActive ? "black" : "lightgray";
     drawEllipse(ctx, this.xPosition, this.yPosition, 0, fillStyle, strokeStyle);
   }
 

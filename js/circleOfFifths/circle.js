@@ -1,8 +1,9 @@
-import { constructScaledCanvas, getRandomColor } from "../shared/utils";
-import { CircleClickCanvas } from "./circleClickCanvas";
-import { redrawAll } from "../shared/commands";
+import {constructScaledCanvas, getRandomColor, setQuality} from "../shared/utils";
+import {CircleClickCanvas} from "./circleClickCanvas";
+import {redrawAll} from "../shared/commands";
 import state from "../shared/state";
-import { DiminishedKeyArea, MajorKeyArea, MinorKeyArea } from "./keyAreas";
+import {DiminishedKeyArea, MajorKeyArea, MinorKeyArea} from "./keyAreas";
+import {circleFillColors} from "../shared/theme";
 
 const canvasSize = {
   width: 500,
@@ -63,6 +64,14 @@ export class CircleOfFifths {
     showChordsInKey && activeKeyArea.writeCornerNumber(ctx);
   }
 
+  outlineActiveKey(ctx, chordRootNumber, chordQuality) {
+    const activeKeyArea =
+      chordQuality === "major"
+        ? new MajorKeyArea(chordRootNumber, 0)
+        : new MinorKeyArea(chordRootNumber, 0);
+    activeKeyArea.drawBorder(ctx, "black");
+  };
+
   highlightChordsInKey(ctx, chordRootNumber, chordQuality) {
     let majorSemitones = [5, 7];
     let minorSemitones = [2, 4, 9];
@@ -79,7 +88,7 @@ export class CircleOfFifths {
         chordRootNumber + semitoneNumber,
         semitoneNumber
       );
-      majorKeyArea.shade(ctx, "yellow");
+      majorKeyArea.shade(ctx, circleFillColors.major);
       majorKeyArea.writeCornerNumber(ctx);
     });
 
@@ -88,7 +97,7 @@ export class CircleOfFifths {
         chordRootNumber + semitoneNumber,
         semitoneNumber
       );
-      minorKeyArea.shade(ctx, "lightblue");
+      minorKeyArea.shade(ctx, circleFillColors.minor);
       minorKeyArea.writeCornerNumber(ctx);
     });
 
@@ -96,7 +105,7 @@ export class CircleOfFifths {
       chordRootNumber + diminishedSemitone,
       diminishedSemitone
     );
-    diminishedKeyArea.shade(ctx, "pink");
+    diminishedKeyArea.shade(ctx, circleFillColors.diminished);
     diminishedKeyArea.writeCornerNumber(ctx);
   }
 
@@ -131,7 +140,7 @@ export class CircleOfFifths {
       const clickedKey = clickCanvas.getClickedKey(event);
       if (clickedKey) {
         const { chordRootNumber, chordQuality } = clickedKey;
-        state.chordQuality = chordQuality;
+        setQuality(chordQuality);
         state.chordRootNumber = chordRootNumber;
         redrawAll();
       }
@@ -169,6 +178,9 @@ export class CircleOfFifths {
 
     this.drawKeyAreas(this.ctx);
     this.drawInvisibleKeyButtons(this.clickCanvas.ctx);
+    this.outlineActiveKey(this.ctx,
+      chordRootNumber,
+      chordQuality);
 
     this.clearEventListeners();
     this.addClickEventListener();
