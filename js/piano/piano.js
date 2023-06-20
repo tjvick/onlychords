@@ -81,6 +81,8 @@ export class Piano {
   draw(state) {
     const { chordRootNumber, activeTones } = state;
 
+    this.clickCanvas.clear();
+
     const onPiano = isolatedTranslate(pianoStyles.offsetX, pianoStyles.offsetY);
     onPiano(this.ctx, () =>
       onPiano(this.clickCanvas.ctx, () => {

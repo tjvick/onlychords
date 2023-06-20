@@ -72,3 +72,27 @@ export function setQuality(chordQuality) {
       : new Set([0, 3, 7]);
   }
 }
+
+export function matchHitMapWithinTolerance(hitMap, r, g, b) {
+  const clickedColor = `rgb(${r},${g},${b})`;
+
+  if (hitMap[clickedColor]) {
+    return hitMap[clickedColor];
+  }
+
+  const matchingRGBs = [];
+  [-1, 0, 1].forEach((dr) => {
+    [-1, 0, 1].forEach((dg) => {
+      [-1, 0, 1].forEach((db) => {
+        const rgbString = `rgb(${r+dr},${g+dg},${b+db})`
+        if (rgbString in hitMap) {
+          matchingRGBs.push(rgbString);
+        }
+      })
+    })
+  })
+
+  if (matchingRGBs.length === 1) {
+    return hitMap[matchingRGBs[0]];
+  }
+}
