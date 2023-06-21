@@ -1,6 +1,7 @@
 import {allSemitones} from "../shared/constants";
 import {
   constructScaledCanvas,
+  isolate,
   isolatedTranslate,
   toggleSemitone,
 } from "../shared/utils";
@@ -29,6 +30,15 @@ export class Piano {
     [this.canvas, this.ctx] = constructScaledCanvas("piano-canvas", canvasSize);
 
     this.clickCanvas = new PianoClickCanvas(canvasSize);
+  }
+
+  clearCanvas() {
+    isolate(this.ctx, () => {
+      this.ctx.beginPath();
+      this.ctx.rect(0, 0, canvasSize.width, canvasSize.height);
+      this.ctx.fillStyle = "white";
+      this.ctx.fill();
+    })
   }
 
   drawPianoKeys(chordRootNumber) {
@@ -81,6 +91,7 @@ export class Piano {
   draw(state) {
     const { chordRootNumber, activeTones } = state;
 
+    this.clearCanvas();
     this.clickCanvas.clear();
 
     const onPiano = isolatedTranslate(pianoStyles.offsetX, pianoStyles.offsetY);
