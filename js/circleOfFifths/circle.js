@@ -1,5 +1,4 @@
 import { setQuality} from "../shared/utils";
-import {CircleClickCanvas} from "./circleClickCanvas";
 import {redrawAll} from "../shared/commands";
 import state from "../shared/state";
 import {ClickableCanvas} from "../shared/canvas";
@@ -14,35 +13,44 @@ const canvasSize = {
 export class CircleOfFifths {
   canvas;
   ctx;
+  keySectors = [];
 
   constructor() {
     this.canvas = new ClickableCanvas("circle-canvas", canvasSize.width, canvasSize.height, canvasSize.scaleFactor);
     this.ctx = this.canvas.ctx;
-    this.clickCanvas = new CircleClickCanvas(canvasSize);
   }
 
-  circleClickHandler() {
-    const clickCanvas = this.clickCanvas;
+  getClickedKeySector(event) {
+    const canvasBox = event.target.getBoundingClientRect();
+    const x = (event.clientX - canvasBox.left) * canvasSize.scaleFactor;
+    const y = (event.clientY - canvasBox.top) * canvasSize.scaleFactor;
 
-    return function handleCircleClick(event) {
-      const clickedKey = clickCanvas.getClickedKey(event);
-      if (clickedKey) {
-        const { chordRootNumber, chordQuality } = clickedKey;
-        setQuality(chordQuality);
-        state.chordRootNumber = chordRootNumber;
-        redrawAll();
+    for (const keySector of this.keySectors) {
+      if (keySector.contains(this.ctx, x, y)) {
+        return keySector;
       }
-    };
+    }
+    return null;
   }
 
   addClickEventListener() {
-    this.canvas.addClickHandler(this.circleClickHandler())
+    this.canvas.addClickHandler((event) => {
+      const clickedKeySector = this.getClickedKeySector(event);
+      if (clickedKeySector !== null) {
+        state.chordRootNumber = clickedKeySector.key.rootNote.index;
+        setQuality(clickedKeySector.key.quality);
+        redrawAll();
+      }
+    })
   }
 
   drawSlices(ctx, chordRootNumber, chordQuality, showChordsInKey) {
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].forEach((ixCirclePosition) => {
       const slice = new CircleOfFifthsSlice(ixCirclePosition);
       slice.draw(ctx, chordRootNumber, chordQuality, showChordsInKey);
+
+      this.keySectors.push(slice.majorKeySector);
+      this.keySectors.push(slice.minorKeySector);
     })
   }
 

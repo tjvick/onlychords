@@ -13,6 +13,10 @@ export class KeySector {
     this.labelColor = formatConfig.labelColor;
   }
 
+  contains(ctx, x, y) {
+    return this.sector.contains(ctx, x, y);
+  }
+
   draw(ctx, showChordsInKey, currentActiveKey) {
     const isKeyActive = this.key.is(currentActiveKey);
     const isChordInKey = this.key.isAChordInKey(currentActiveKey);
@@ -68,7 +72,7 @@ export class KeySector {
   }
 
   #getAccidentalSide() {
-    if (this.circlePositionIndex < 3) {
+    if (this.circlePositionIndex < 3 || this.circlePositionIndex > 9) {
       return ACCIDENTAL_SIDE.sharp;
     } else if (this.circlePositionIndex === 3) {
       return ACCIDENTAL_SIDE.both;

@@ -16,6 +16,10 @@ export class CircleSector {
     this.path = this.buildPath();
   }
 
+  contains(ctx, x, y) {
+    return ctx.isPointInPath(this.path, x, y);
+  }
+
   buildPath() {
     const arcStartAngle = this.angle - this.semiArcLength;
     const arcEndAngle = this.angle + this.semiArcLength;
