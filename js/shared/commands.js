@@ -5,15 +5,16 @@ import { CircleOfFifths } from "../circleOfFifths/circle";
 
 const circleOfFifths = new CircleOfFifths();
 const piano = new Piano();
+const fretboard = new Fretboard();
 
 export function redrawAll() {
   piano.draw(state);
-  new Fretboard(state.instrument).draw(state);
+  fretboard.draw(state);
   circleOfFifths.draw(state);
 }
 
 export function redrawFretboard() {
-  new Fretboard(state.instrument).draw(state);
+  fretboard.draw(state);
 }
 
 export function redrawCircle() {

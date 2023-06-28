@@ -1,5 +1,5 @@
-import { notes } from "../shared/constants";
 import { isolate } from "../shared/utils";
+import {noteFromIndex} from "../shared/note";
 
 export const pianoKeyStyles = {
   keyHeight: 60,
@@ -34,7 +34,7 @@ function keyOutlineColor(isHighlighted) {
 export class PianoKey {
   constructor(index) {
     this.index = index;
-    this.note = notes[index % 12];
+    this.note = noteFromIndex(index);
     this.xPosition = index * pianoKeyStyles.keyWidth;
   }
 
@@ -44,7 +44,7 @@ export class PianoKey {
 
   textStartingYPosition() {
     const centerLine = pianoKeyStyles.keyHeight / 2;
-    const nLines = this.note.labels.length - 1;
+    const nLines = this.note.getAllLabels().length - 1;
     return centerLine - (pianoKeyStyles.textHeight / 2) * nLines;
   }
 
@@ -58,7 +58,7 @@ export class PianoKey {
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillStyle = keyLabelColor(this.note.isAccidental, isHighlighted);
-      this.note.labels.forEach((labelText, ixLabel) => {
+      this.note.getAllLabels().forEach((labelText, ixLabel) => {
         const labelYPosition =
           textYPosition + ixLabel * pianoKeyStyles.textHeight;
         ctx.fillText(labelText, textXPosition, labelYPosition);

@@ -1,6 +1,4 @@
-import { setQuality} from "../shared/utils";
-import {redrawAll} from "../shared/commands";
-import state from "../shared/state";
+import {setKey} from "../shared/state";
 import {ClickableCanvas} from "../shared/canvas";
 import {CircleOfFifthsSlice} from "./circleSlice";
 
@@ -20,6 +18,11 @@ export class CircleOfFifths {
     this.ctx = this.canvas.ctx;
   }
 
+  reset() {
+    this.keySectors = [];
+    this.canvas.reset();
+  }
+
   getClickedKeySector(event) {
     const canvasBox = event.target.getBoundingClientRect();
     const x = (event.clientX - canvasBox.left) * canvasSize.scaleFactor;
@@ -37,17 +40,15 @@ export class CircleOfFifths {
     this.canvas.addClickHandler((event) => {
       const clickedKeySector = this.getClickedKeySector(event);
       if (clickedKeySector !== null) {
-        state.chordRootNumber = clickedKeySector.key.rootNote.index;
-        setQuality(clickedKeySector.key.quality);
-        redrawAll();
+        setKey(clickedKeySector.key);
       }
     })
   }
 
-  drawSlices(ctx, chordRootNumber, chordQuality, showChordsInKey) {
+  drawSlices(ctx, activeKey, chordsInKeyVisible) {
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].forEach((ixCirclePosition) => {
       const slice = new CircleOfFifthsSlice(ixCirclePosition);
-      slice.draw(ctx, chordRootNumber, chordQuality, showChordsInKey);
+      slice.draw(ctx, activeKey, chordsInKeyVisible);
 
       this.keySectors.push(slice.majorKeySector);
       this.keySectors.push(slice.minorKeySector);
@@ -55,11 +56,11 @@ export class CircleOfFifths {
   }
 
   draw(state) {
-    const { chordRootNumber, chordQuality, showChordsInKey } = state;
+    const { activeKey, chordsInKeyVisible } = state;
 
-    this.canvas.reset();
+    this.reset();
 
-    this.drawSlices(this.ctx, chordRootNumber, chordQuality, showChordsInKey);
+    this.drawSlices(this.ctx, activeKey, chordsInKeyVisible);
 
     this.addClickEventListener();
   }

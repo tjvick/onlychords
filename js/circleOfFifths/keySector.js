@@ -1,5 +1,5 @@
 import { circleFillColors } from "../shared/theme";
-import {ACCIDENTAL_SIDE} from "../shared/constants";
+import {ACCIDENTAL_MODE} from "../shared/constants";
 import {CircleSector} from "./circleSector";
 
 export class KeySector {
@@ -17,7 +17,7 @@ export class KeySector {
     return this.sector.contains(ctx, x, y);
   }
 
-  draw(ctx, showChordsInKey, currentActiveKey) {
+  draw(ctx, currentActiveKey, showChordsInKey) {
     const isKeyActive = this.key.is(currentActiveKey);
     const isChordInKey = this.key.isAChordInKey(currentActiveKey);
 
@@ -73,11 +73,11 @@ export class KeySector {
 
   #getAccidentalSide() {
     if (this.circlePositionIndex < 3 || this.circlePositionIndex > 9) {
-      return ACCIDENTAL_SIDE.sharp;
+      return ACCIDENTAL_MODE.sharp;
     } else if (this.circlePositionIndex === 3) {
-      return ACCIDENTAL_SIDE.both;
+      return ACCIDENTAL_MODE.both;
     } else {
-      return ACCIDENTAL_SIDE.flat;
+      return ACCIDENTAL_MODE.flat;
     }
   }
 }

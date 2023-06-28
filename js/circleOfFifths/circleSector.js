@@ -1,6 +1,5 @@
 import { isolate } from "../shared/utils";
 import { circleStyles } from "./shared";
-import { isChrome } from "../shared/global";
 
 export class CircleSector {
   semiArcLength = Math.PI / 12;
@@ -93,6 +92,8 @@ export class CircleSector {
     });
   }
 }
+
+const isChrome = !!window["chrome"];
 
 function adjustFlatWordSpacing(ctx, text) {
   if (isChrome) {

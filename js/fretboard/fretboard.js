@@ -13,27 +13,30 @@ const canvasSize = {
 };
 
 export class Fretboard {
-  constructor(instrument) {
+  constructor() {
     this.clickCanvas = new ClickableCanvas("fretboard-canvas", canvasSize.width, canvasSize.height, canvasSize.scaleFactor);
     this.ctx = this.clickCanvas.ctx;
-    this.instrument = instrument;
   }
 
-  drawStrings() {
+  reset() {
+    this.clickCanvas.reset();
+  }
+
+  drawStrings(instrument) {
     for (
       let stringNumber = 0;
-      stringNumber < this.instrument.nStrings;
+      stringNumber < instrument.nStrings;
       stringNumber++
     ) {
-      const fretboardString = getFretboardString(this.instrument, stringNumber);
+      const fretboardString = getFretboardString(instrument, stringNumber);
       fretboardString.draw(this.ctx);
     }
   }
 
-  drawFrets() {
+  drawFrets(instrument) {
     for (
       let fretNumber = 0;
-      fretNumber <= this.instrument.nFrets;
+      fretNumber <= instrument.nFrets;
       fretNumber++
     ) {
       const fret = new FretboardFret(fretNumber);
@@ -41,14 +44,14 @@ export class Fretboard {
     }
   }
 
-  drawSemitones(chordRootNumber, activeTones) {
+  drawSemitones(instrument, activeKey, activeTones) {
     activeTones.forEach((activeTone) => {
       const semitone = allSemitones.find(
         (note) => note.position === activeTone
       );
       const fretboardSemitone = new FretboardSemitone(
-        this.instrument,
-        chordRootNumber,
+        instrument,
+        activeKey.rootNote.index,
         semitone
       );
       fretboardSemitone.draw(this.ctx);
@@ -56,16 +59,18 @@ export class Fretboard {
   }
 
   draw(state) {
-    const { chordRootNumber, activeTones } = state;
+    const { activeKey, activeTones, instrument } = state;
+
+    this.reset();
 
     const onFretboard = isolatedTranslate(
       fretboardStyles.offsetX,
       fretboardStyles.offsetY
     );
     onFretboard(this.ctx, () => {
-      this.drawStrings();
-      this.drawFrets();
-      this.drawSemitones(chordRootNumber, activeTones);
+      this.drawStrings(instrument);
+      this.drawFrets(instrument);
+      this.drawSemitones(instrument, activeKey, activeTones);
     });
   }
 }

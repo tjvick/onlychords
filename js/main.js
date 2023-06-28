@@ -1,20 +1,17 @@
-import state from "./shared/state";
-import { instruments } from "./shared/constants";
-import { redrawAll, redrawCircle, redrawFretboard } from "./shared/commands";
+import {setChordsInKeyVisible, setInstrument} from "./shared/state";
+import { redrawAll } from "./shared/commands";
+import {instruments} from "./shared/instrument";
 
 redrawAll();
-redrawCircle();
 
 function handleInstrumentSelect(instrumentName) {
   if (instruments.hasOwnProperty(instrumentName)) {
-    state.instrument = instruments[instrumentName];
-    redrawFretboard();
+    setInstrument(instruments[instrumentName]);
   }
 }
 
 function handleChordsInKeyToggle(toggleElement) {
-  state.showChordsInKey = toggleElement.checked;
-  redrawCircle();
+  setChordsInKeyVisible(toggleElement.checked);
 }
 
 window.handleInstrumentSelect = handleInstrumentSelect;

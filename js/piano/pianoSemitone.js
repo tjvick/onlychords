@@ -1,6 +1,6 @@
 import { pianoKeyStyles } from "./pianoKey";
 import { toneColors } from "../shared/theme";
-import { drawEllipse, getRandomColor, isolate } from "../shared/utils";
+import { drawEllipse, isolate } from "../shared/utils";
 
 export class PianoSemiTone {
   path;
