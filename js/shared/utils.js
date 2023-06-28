@@ -18,9 +18,9 @@ export function isolatedTranslate(offsetX, offsetY) {
 const ellipseWidth = 16;
 const ellipseHeight = 10;
 export function drawEllipse(ctx, x, y, buffer, fillStyle, strokeStyle) {
+  const ellipsePath = new Path2D();
   isolate(ctx, () => {
-    ctx.beginPath();
-    ctx.ellipse(
+    ellipsePath.ellipse(
       x,
       y,
       ellipseWidth + buffer,
@@ -30,10 +30,11 @@ export function drawEllipse(ctx, x, y, buffer, fillStyle, strokeStyle) {
       Math.PI * 2
     );
     ctx.fillStyle = fillStyle;
-    ctx.fill();
+    ctx.fill(ellipsePath);
     ctx.strokeStyle = strokeStyle;
-    ctx.stroke();
+    ctx.stroke(ellipsePath);
   });
+  return ellipsePath;
 }
 
 export function getRandomColor() {

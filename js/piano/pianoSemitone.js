@@ -3,37 +3,30 @@ import { toneColors } from "../shared/theme";
 import { drawEllipse, getRandomColor, isolate } from "../shared/utils";
 
 export class PianoSemiTone {
+  path;
+
   constructor(rootKeyIndex, chordSemitone) {
     this.label = chordSemitone.label;
+    this.position = chordSemitone.position;
 
     const keyIndex = rootKeyIndex + chordSemitone.position;
     this.xPosition =
       keyIndex * pianoKeyStyles.keyWidth + pianoKeyStyles.keyWidth / 2;
     this.yPosition = pianoKeyStyles.keyHeight + 20;
-
-    this.invisibleColor = getRandomColor();
   }
 
-  drawVisibleShape(ctx, isActive) {
+  contains(ctx, x, y) {
+    if (!this.path) {
+      return false;
+    }
+
+    return ctx.isPointInPath(this.path, x, y);
+  }
+
+  drawShape(ctx, isActive) {
     const fillStyle = isActive ? toneColors[this.label] : "lightgray";
     const strokeStyle = isActive ? "black" : "lightgray";
-    drawEllipse(ctx, this.xPosition, this.yPosition, 0, fillStyle, strokeStyle);
-  }
-
-  drawInvisibleShape(ctx) {
-    drawEllipse(
-      ctx,
-      this.xPosition,
-      this.yPosition,
-      3,
-      this.invisibleColor,
-      this.invisibleColor
-    );
-  }
-
-  drawShape(visibleCtx, invisibleCtx, isActive) {
-    this.drawVisibleShape(visibleCtx, isActive);
-    this.drawInvisibleShape(invisibleCtx);
+    return drawEllipse(ctx, this.xPosition, this.yPosition, 0, fillStyle, strokeStyle);
   }
 
   writeLabel(ctx) {
@@ -46,9 +39,8 @@ export class PianoSemiTone {
     });
   }
 
-  draw(visibleCtx, invisibleCtx, isActive) {
-    this.drawShape(visibleCtx, invisibleCtx, isActive);
-    this.writeLabel(visibleCtx);
-    return this.invisibleColor;
+  draw(ctx, isActive) {
+    this.path = this.drawShape(ctx, isActive);
+    this.writeLabel(ctx);
   }
 }

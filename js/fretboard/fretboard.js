@@ -1,9 +1,10 @@
 import {allSemitones} from "../shared/constants";
-import { constructScaledCanvas, isolatedTranslate } from "../shared/utils";
+import { isolatedTranslate } from "../shared/utils";
 import { getFretboardString } from "./fretboardString";
 import { fretboardStyles } from "./shared";
 import { FretboardFret } from "./fretboardFret";
 import { FretboardSemitone } from "./fretboardSemitone";
+import {ClickableCanvas} from "../shared/canvas";
 
 const canvasSize = {
   width: 1200,
@@ -13,8 +14,8 @@ const canvasSize = {
 
 export class Fretboard {
   constructor(instrument) {
-    let [_, ctx] = constructScaledCanvas("fretboard-canvas", canvasSize);
-    this.ctx = ctx;
+    this.clickCanvas = new ClickableCanvas("fretboard-canvas", canvasSize.width, canvasSize.height, canvasSize.scaleFactor);
+    this.ctx = this.clickCanvas.ctx;
     this.instrument = instrument;
   }
 

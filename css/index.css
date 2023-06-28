@@ -1,3 +1,7 @@
+html {
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
 .top-bar {
   background-color: hsl(120, 100%, 0%);
   padding: 10px 0;
