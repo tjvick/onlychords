@@ -6,3 +6,4 @@ dist
 .parcel-cache
 
 .idea
+.DS_Store

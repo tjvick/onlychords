@@ -72,7 +72,6 @@ export class CircleSector {
 
       labelLines.forEach((labelLine, ixLine) => {
         ctx.font = fonts[ixLine];
-        labelLine = adjustFlatWordSpacing(ctx, labelLine);
         ctx.fillText(labelLine, textX, textTop + (ixLine * textHeight));
       });
     });
@@ -91,19 +90,4 @@ export class CircleSector {
       ctx.fillText(text, x, y);
     });
   }
-}
-
-const isChrome = !!window["chrome"];
-
-function adjustFlatWordSpacing(ctx, text) {
-  if (isChrome) {
-    if (text.includes("♭")) {
-      text = text.replace("♭", " ♭ ");
-      ctx.wordSpacing = "-0.5em";
-    } else {
-      ctx.wordSpacing = "0px";
-    }
-  }
-
-  return text;
 }

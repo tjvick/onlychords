@@ -1,5 +1,5 @@
 html {
-  font-family: 'Nanum Gothic', sans-serif;
+  font-family: 'Times New Roman', serif;
 }
 
 .top-bar {
@@ -14,10 +14,6 @@ html {
   text-align: center;
 }
 
-.hidden-container {
-  display: none;
-}
-
 .circle-container {
   width: 100%;
   max-width: 500px;
@@ -28,12 +24,7 @@ html {
   display: block;
   width: 100%;
   aspect-ratio: 1;
-}
-
-#circle-click-canvas {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1;
+  font-family: 'Gothic A1', Arial, Helvetica, sans-serif;
 }
 
 .fretboard-container {
@@ -56,16 +47,14 @@ html {
   margin: 0 auto 40px;
 }
 
+.piano-instructions {
+  margin-bottom: 0;
+}
+
 #piano-canvas {
   display: block;
   width: 1200px;
   height: 150px;
-}
-
-#hit-canvas {
-  display: block;
-  width: 1200px;
-  height: 200px;
 }
 
 .chords-in-key-toggle {

@@ -17,22 +17,25 @@ export class KeySector {
     return this.sector.contains(ctx, x, y);
   }
 
-  draw(ctx, currentActiveKey, showChordsInKey) {
+  draw(ctx, currentActiveKey, chordsInKeyVisible) {
     const isKeyActive = this.key.is(currentActiveKey);
     const isChordInKey = this.key.isAChordInKey(currentActiveKey);
 
-    if (showChordsInKey && isChordInKey) {
+    if (chordsInKeyVisible && isChordInKey) {
       this.#shade(ctx);
     }
     if (isKeyActive) {
       this.#highlight(ctx);
     }
     this.#drawBorder(ctx);
+    if (isKeyActive) {
+      drawOnTop(() => this.#drawBorder(ctx, "black"));
+    }
     this.#writeLabel(ctx);
     if (isKeyActive) {
       this.#writeCornerNumber(ctx, currentActiveKey);
     }
-    if (showChordsInKey && isChordInKey) {
+    if (chordsInKeyVisible && isChordInKey) {
       this.#writeCornerNumber(ctx, currentActiveKey);
     }
   }
@@ -45,7 +48,7 @@ export class KeySector {
     this.sector.fill(ctx, fillStyle || this.shadeColor);
   }
 
-  #drawBorder(ctx, strokeStyle = "lightgray") {
+  #drawBorder(ctx, strokeStyle = "rgb(199, 199, 199)") {
     this.sector.outline(ctx, "2", strokeStyle);
   }
 

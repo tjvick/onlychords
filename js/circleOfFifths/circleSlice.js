@@ -1,7 +1,7 @@
 import { KeySector } from "./keySector";
 import { CHORD_QUALITY } from "../shared/constants";
 import { circleStyles } from "./shared";
-import { circleFillColors } from "../shared/theme";
+import {circleFillColors, font} from "../shared/theme";
 import {noteFromIndex} from "../shared/note";
 import {Key} from "../shared/key";
 
@@ -26,16 +26,16 @@ export class CircleOfFifthsSlice {
 
     this.majorKeySector = new KeySector(circlePositionIndex, majorKey, {
       radii: [circleStyles.middleRadius, circleStyles.outerRadius],
-      labelFonts: ["25px serif"],
-      superscriptFont: "15px serif",
-      shadeColor: circleFillColors.major,
+      labelFonts: [`24px ${font.note}`],
+      superscriptFont: `15px ${font.scaleDegree}`,
+      shadeColor: circleFillColors.gray,
       labelColor: "black",
     });
     this.minorKeySector = new KeySector(circlePositionIndex, minorKey, {
       radii: [circleStyles.innerRadius, circleStyles.middleRadius],
-      labelFonts: ["21px serif"],
-      superscriptFont: "15px serif",
-      shadeColor: circleFillColors.minor,
+      labelFonts: [`19px ${font.note}`],
+      superscriptFont: `15px ${font.scaleDegree}`,
+      shadeColor: circleFillColors.gray,
       labelColor: "black",
     });
     this.diminishedKeySector = new KeySector(
@@ -43,9 +43,9 @@ export class CircleOfFifthsSlice {
       diminishedKey,
       {
         radii: [circleStyles.innerInnerRadius, circleStyles.innerRadius],
-        labelFonts: ["19px serif", "16px serif"],
-        superscriptFont: "15px serif",
-        shadeColor: circleFillColors.diminished,
+        labelFonts: [`16px ${font.note}`, `16px ${font.note}`],
+        superscriptFont: `15px ${font.scaleDegree}`,
+        shadeColor: circleFillColors.gray,
         labelColor: "gray",
       }
     );

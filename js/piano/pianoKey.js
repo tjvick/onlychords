@@ -1,5 +1,6 @@
 import { isolate } from "../shared/utils";
 import {noteFromIndex} from "../shared/note";
+import {font} from "../shared/theme";
 
 export const pianoKeyStyles = {
   keyHeight: 60,
@@ -36,6 +37,7 @@ export class PianoKey {
     this.index = index;
     this.note = noteFromIndex(index);
     this.xPosition = index * pianoKeyStyles.keyWidth;
+    this.yPosition = 20;
   }
 
   isHighlighted(chordRootNumber) {
@@ -43,7 +45,7 @@ export class PianoKey {
   }
 
   textStartingYPosition() {
-    const centerLine = pianoKeyStyles.keyHeight / 2;
+    const centerLine = this.yPosition + pianoKeyStyles.keyHeight / 2;
     const nLines = this.note.getAllLabels().length - 1;
     return centerLine - (pianoKeyStyles.textHeight / 2) * nLines;
   }
@@ -54,7 +56,7 @@ export class PianoKey {
     const isHighlighted = this.isHighlighted(chordRootNumber);
 
     isolate(ctx, () => {
-      ctx.font = "16px serif";
+      ctx.font = `16px ${font.note}`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillStyle = keyLabelColor(this.note.isAccidental, isHighlighted);
@@ -73,7 +75,7 @@ export class PianoKey {
       ctx.beginPath();
       ctx.rect(
         this.xPosition,
-        0,
+        this.yPosition,
         pianoKeyStyles.keyWidth,
         pianoKeyStyles.keyHeight
       );

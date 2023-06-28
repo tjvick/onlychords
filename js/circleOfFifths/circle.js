@@ -25,8 +25,10 @@ export class CircleOfFifths {
 
   getClickedKeySector(event) {
     const canvasBox = event.target.getBoundingClientRect();
-    const x = (event.clientX - canvasBox.left) * canvasSize.scaleFactor;
-    const y = (event.clientY - canvasBox.top) * canvasSize.scaleFactor;
+    const xScaleRatio = canvasBox.width / canvasSize.width;
+    const yScaleRatio = canvasBox.height / canvasSize.height;
+    const x = (event.clientX - canvasBox.left) * canvasSize.scaleFactor / xScaleRatio;
+    const y = (event.clientY - canvasBox.top) * canvasSize.scaleFactor / yScaleRatio;
 
     for (const keySector of this.keySectors) {
       if (keySector.contains(this.ctx, x, y)) {

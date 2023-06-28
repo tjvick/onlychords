@@ -34,10 +34,6 @@
       <canvas id="circle-canvas" role="presentation"> </canvas>
     </div>
 
-    <div class="hidden-container">
-      <canvas id="circle-click-canvas"></canvas>
-    </div>
-
     <form>
       <div class="chords-in-key-toggle">
         <input
@@ -49,7 +45,7 @@
           checked
         />
         <label for="chords-in-key"
-          >Highlight other chords in the chosen key</label
+        >Highlight other chords in the chosen key</label
         >
       </div>
     </form>
@@ -84,12 +80,10 @@
       <canvas id="fretboard-canvas" role="presentation"> </canvas>
     </div>
 
-    <div class="piano-container">
-      <canvas id="piano-canvas" role="presentation"> </canvas>
-    </div>
 
-    <div class="hidden-container">
-      <canvas id="hit-canvas"></canvas>
+    <div class="piano-container">
+      <p class="piano-instructions">Toggle semitone buttons to show/hide:</p>
+      <canvas id="piano-canvas" role="presentation"> </canvas>
     </div>
 
     <script src="js/vendor/modernizr-3.11.2.min.js"></script>

@@ -13,6 +13,10 @@ export function redrawAll() {
   circleOfFifths.draw(state);
 }
 
+export function redrawPiano() {
+  piano.draw(state);
+}
+
 export function redrawFretboard() {
   fretboard.draw(state);
 }

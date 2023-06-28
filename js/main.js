@@ -1,8 +1,16 @@
-import {setChordsInKeyVisible, setInstrument} from "./shared/state";
+import { setChordsInKeyVisible, setInstrument } from "./shared/state";
 import { redrawAll } from "./shared/commands";
-import {instruments} from "./shared/instrument";
+import { instruments } from "./shared/instrument";
 
-redrawAll();
+function init() {
+  const fontFile = new FontFace(
+    "Gothic A1",
+    "url(./fonts/GothicA1-Regular.ttf)"
+  );
+  document.fonts.add(fontFile);
+  fontFile.load().then(() => redrawAll());
+}
+
 
 function handleInstrumentSelect(instrumentName) {
   if (instruments.hasOwnProperty(instrumentName)) {
@@ -16,3 +24,5 @@ function handleChordsInKeyToggle(toggleElement) {
 
 window.handleInstrumentSelect = handleInstrumentSelect;
 window.handleChordsInKeyToggle = handleChordsInKeyToggle;
+
+init();
