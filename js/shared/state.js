@@ -2,7 +2,7 @@ import {CHORD_QUALITY} from "./constants";
 import {instruments} from "./instrument";
 import {noteFromIndex} from "./note";
 import {Key} from "./key";
-import {redrawAll, redrawCircle, redrawFretboard, redrawPiano} from "./commands";
+import {highlightChordVariation, redrawAll, redrawCircle, redrawFretboard, redrawPiano} from "./commands";
 
 let state = {
   activeKey: new Key(noteFromIndex(3), CHORD_QUALITY.major),
@@ -21,7 +21,16 @@ export function setKey(key) {
     state.activeKey = key;
 
     redrawAll();
+    highlightChordVariation();
   }
+}
+
+export function setChordVariation(chordVariation) {
+  state.activeTones = new Set(chordVariation.semitoneNumbers);
+
+  redrawFretboard();
+  redrawPiano();
+  highlightChordVariation();
 }
 
 export function setChordsInKeyVisible(isVisible) {
@@ -49,6 +58,7 @@ export function toggleSemitone(clickedSemitone) {
 
   redrawPiano();
   redrawFretboard();
+  highlightChordVariation();
 }
 
 

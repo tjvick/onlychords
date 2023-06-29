@@ -1,5 +1,5 @@
 import { setChordsInKeyVisible, setInstrument } from "./shared/state";
-import { redrawAll } from "./shared/commands";
+import {redrawAll} from "./shared/commands";
 import { instruments } from "./shared/instrument";
 
 function init() {
@@ -8,7 +8,9 @@ function init() {
     "url(./fonts/GothicA1-Regular.ttf)"
   );
   document.fonts.add(fontFile);
-  fontFile.load().then(() => redrawAll());
+  fontFile.load().then(() => {
+    redrawAll();
+  });
 }
 
 

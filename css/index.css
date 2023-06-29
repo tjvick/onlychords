@@ -47,8 +47,34 @@ html {
   margin: 0 auto 40px;
 }
 
+.chord-variations-bar {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+  display: flex;
+  align-items: center;
+  background-color: hsl(0, 0%, 85%);
+  padding: 10px;
+}
+
 .piano-instructions {
-  margin-bottom: 0;
+  margin: 0 10px 0 0;
+}
+
+.chord-variation-button {
+  border: 1px solid hsl(0, 0%, 50%);
+  border-radius: 5px;
+  background-color: white;
+  padding: 3px 7px;
+  font-size: 18px;
+  margin-right: 5px;
+  box-shadow: 0 2px 3px hsl(0, 0%, 70%);
+}
+
+.chord-variation-button.active {
+  background-color: black;
+  color: white;
+  border: 1px solid black;
 }
 
 #piano-canvas {
