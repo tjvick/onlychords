@@ -67,9 +67,10 @@ html {
   border-radius: 5px;
   background-color: white;
   padding: 3px 7px;
-  font-size: 18px;
+  font-size: 17px;
   margin: 3px 5px 3px 0;
   box-shadow: 0 2px 3px hsl(0, 0%, 70%);
+  font-family: 'Gothic A1', Arial, Helvetica, sans-serif;
 }
 
 .chord-variation-button.active {
