@@ -1,10 +1,10 @@
-import {allSemitones} from "../shared/constants";
+import { allSemitones } from "../shared/constants";
 import { isolatedTranslate } from "../shared/utils";
 import { getFretboardString } from "./fretboardString";
 import { fretboardStyles } from "./shared";
 import { FretboardFret } from "./fretboardFret";
 import { FretboardSemitone } from "./fretboardSemitone";
-import {ClickableCanvas} from "../shared/canvas";
+import { ClickableCanvas } from "../shared/canvas";
 
 const canvasSize = {
   width: 1200,
@@ -14,7 +14,12 @@ const canvasSize = {
 
 export class Fretboard {
   constructor() {
-    this.clickCanvas = new ClickableCanvas("fretboard-canvas", canvasSize.width, canvasSize.height, canvasSize.scaleFactor);
+    this.clickCanvas = new ClickableCanvas(
+      "fretboard-canvas",
+      canvasSize.width,
+      canvasSize.height,
+      canvasSize.scaleFactor
+    );
     this.ctx = this.clickCanvas.ctx;
   }
 
@@ -34,11 +39,7 @@ export class Fretboard {
   }
 
   drawFrets(instrument) {
-    for (
-      let fretNumber = 0;
-      fretNumber <= instrument.nFrets;
-      fretNumber++
-    ) {
+    for (let fretNumber = 0; fretNumber <= instrument.nFrets; fretNumber++) {
       const fret = new FretboardFret(fretNumber);
       fret.draw(this.ctx);
     }
@@ -72,7 +73,12 @@ export class Fretboard {
     onFretboard(this.ctx, () => {
       this.drawStrings(instrument);
       this.drawFrets(instrument);
-      this.drawSemitones(instrument, activeKey, activeTones, optionalActiveTones);
+      this.drawSemitones(
+        instrument,
+        activeKey,
+        activeTones,
+        optionalActiveTones
+      );
     });
   }
 }

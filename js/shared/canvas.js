@@ -1,4 +1,4 @@
-import {isolate} from "./utils";
+import { isolate } from "./utils";
 
 export class ClickableCanvas {
   #abortControllers = [];
@@ -23,13 +23,9 @@ export class ClickableCanvas {
   addClickHandler(handlerFunction) {
     const abortController = new AbortController();
     this.#abortControllers.push(abortController);
-    this.canvas.addEventListener(
-      "click",
-      handlerFunction,
-      {
-        signal: abortController.signal,
-      }
-    );
+    this.canvas.addEventListener("click", handlerFunction, {
+      signal: abortController.signal,
+    });
   }
 
   #whiteOut() {

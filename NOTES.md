@@ -1,7 +1,7 @@
 Chord Variations to Implement:
 
 | abbreviation | full name                            | notes             | semitones         | done |
-|--------------|--------------------------------------|-------------------|-------------------|------|
+| ------------ | ------------------------------------ | ----------------- | ----------------- | ---- |
 | C            | C major                              | 1 3 5             | 0 4 7             | Y    |
 | Cm           | C minor                              | 1 b3 5            | 0 3 7             | Y    |
 | C7           | C dominant seventh                   | 1 3 5 b7          | 0 4 7 10          | Y    |
@@ -33,13 +33,13 @@ Chord Variations to Implement:
 | C7-5         | C seven minus five (??)              |
 | C7+5         | C seven plus five (Caug7)            |
 
-
-
 Activating a 9th or a 2nd would work
 Activating both a 9th and a 2nd:
+
 - Deactivates the other
 
 Below the piano:
+
 - m9
 - M9
 - m10

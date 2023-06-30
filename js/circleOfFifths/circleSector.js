@@ -72,7 +72,7 @@ export class CircleSector {
 
       labelLines.forEach((labelLine, ixLine) => {
         ctx.font = fonts[ixLine];
-        ctx.fillText(labelLine, textX, textTop + (ixLine * textHeight));
+        ctx.fillText(labelLine, textX, textTop + ixLine * textHeight);
       });
     });
   }

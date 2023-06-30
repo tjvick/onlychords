@@ -1,12 +1,16 @@
 import { circleFillColors } from "../shared/theme";
-import {ACCIDENTAL_MODE} from "../shared/constants";
-import {CircleSector} from "./circleSector";
+import { ACCIDENTAL_MODE } from "../shared/constants";
+import { CircleSector } from "./circleSector";
 
 export class KeySector {
   constructor(circlePositionIndex, key, formatConfig) {
     this.key = key;
     this.circlePositionIndex = circlePositionIndex;
-    this.sector = new CircleSector(circlePositionIndex, formatConfig.radii[0], formatConfig.radii[1]);
+    this.sector = new CircleSector(
+      circlePositionIndex,
+      formatConfig.radii[0],
+      formatConfig.radii[1]
+    );
     this.labelFonts = formatConfig.labelFonts;
     this.superscriptFont = formatConfig.superscriptFont;
     this.shadeColor = formatConfig.shadeColor;
@@ -54,12 +58,7 @@ export class KeySector {
   #writeLabel(ctx) {
     const keyLabels = this.key.getLabel(this.#getAccidentalSide()).split(" ");
 
-    this.sector.label(
-      ctx,
-      keyLabels,
-      this.labelFonts,
-      "black"
-    );
+    this.sector.label(ctx, keyLabels, this.labelFonts, "black");
   }
 
   #writeCornerNumber(ctx, currentActiveKey, fillStyle = "black") {

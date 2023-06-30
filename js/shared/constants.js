@@ -27,7 +27,7 @@ export const allSemitones = [
   new Semitone(19, "P12"),
   new Semitone(20, "m13"),
   new Semitone(21, "M13"),
-]
+];
 
 export const ACCIDENTAL_MODE = {
   sharp: "sharp",
@@ -38,6 +38,5 @@ export const ACCIDENTAL_MODE = {
 export const CHORD_QUALITY = {
   major: "major",
   minor: "minor",
-  diminished: "diminished"
-}
-
+  diminished: "diminished",
+};

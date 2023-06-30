@@ -1,9 +1,9 @@
-import {allSemitones} from "../shared/constants";
-import {isolate, isolatedTranslate,} from "../shared/utils";
-import {PianoKey, pianoKeyStyles} from "./pianoKey";
-import {PianoSemiTone} from "./pianoSemitone";
-import {ClickableCanvas} from "../shared/canvas";
-import {toggleSemitone} from "../shared/state";
+import { allSemitones } from "../shared/constants";
+import { isolate, isolatedTranslate } from "../shared/utils";
+import { PianoKey, pianoKeyStyles } from "./pianoKey";
+import { PianoSemiTone } from "./pianoSemitone";
+import { ClickableCanvas } from "../shared/canvas";
+import { toggleSemitone } from "../shared/state";
 
 const canvasSize = {
   width: 1200,
@@ -20,7 +20,12 @@ export class Piano {
   semitones = [];
 
   constructor() {
-    this.canvas = new ClickableCanvas("piano-canvas", canvasSize.width, canvasSize.height, canvasSize.scaleFactor);
+    this.canvas = new ClickableCanvas(
+      "piano-canvas",
+      canvasSize.width,
+      canvasSize.height,
+      canvasSize.scaleFactor
+    );
     this.ctx = this.canvas.ctx;
   }
 
@@ -40,7 +45,10 @@ export class Piano {
     allSemitones.forEach((semitone) => {
       const isActive = activeTones.has(semitone.position);
 
-      const pianoSemitone = new PianoSemiTone(activeKey.rootNote.index, semitone);
+      const pianoSemitone = new PianoSemiTone(
+        activeKey.rootNote.index,
+        semitone
+      );
       pianoSemitone.draw(this.ctx, isActive);
       this.semitones.push(pianoSemitone);
     });
@@ -82,7 +90,7 @@ export class Piano {
       if (clickedSemitonePosition !== null) {
         toggleSemitone(clickedSemitonePosition);
       }
-    })
+    });
   }
 
   draw(state) {
@@ -100,5 +108,3 @@ export class Piano {
     this.addClickEventListener();
   }
 }
-
-

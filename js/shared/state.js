@@ -1,9 +1,15 @@
-import {CHORD_QUALITY} from "./constants";
-import {instruments} from "./instrument";
-import {noteFromIndex} from "./note";
-import {Key} from "./key";
-import {highlightChordVariation, redrawAll, redrawCircle, redrawFretboard, redrawPiano} from "./commands";
-import {CHORD_VARIATIONS} from "./chordVariations";
+import { CHORD_QUALITY } from "./constants";
+import { instruments } from "./instrument";
+import { noteFromIndex } from "./note";
+import { Key } from "./key";
+import {
+  highlightChordVariation,
+  redrawAll,
+  redrawCircle,
+  redrawFretboard,
+  redrawPiano,
+} from "./commands";
+import { CHORD_VARIATIONS } from "./chordVariations";
 
 let state = {
   activeKey: new Key(noteFromIndex(3), CHORD_QUALITY.major),
@@ -64,7 +70,6 @@ export function toggleSemitone(clickedSemitone) {
   highlightChordVariation();
   // setOptionalTones(state.activeTones);
 }
-
 
 function changeStateForChordVariation(chordVariation) {
   state.activeTones = new Set(chordVariation.semitoneNumbers);

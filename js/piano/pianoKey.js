@@ -1,6 +1,6 @@
 import { isolate } from "../shared/utils";
-import {noteFromIndex} from "../shared/note";
-import {font} from "../shared/theme";
+import { noteFromIndex } from "../shared/note";
+import { font } from "../shared/theme";
 
 export const pianoKeyStyles = {
   keyHeight: 60,

@@ -1,4 +1,4 @@
-import {ACCIDENTAL_MODE} from "./constants";
+import { ACCIDENTAL_MODE } from "./constants";
 
 export class Note {
   constructor(index, label) {
@@ -39,12 +39,15 @@ export class AccidentalNote {
       case ACCIDENTAL_MODE.sharp:
         return this.lowerTone + "♯";
       default:
-        return `${this.lowerTone}♯/${this.higherTone}♭`
+        return `${this.lowerTone}♯/${this.higherTone}♭`;
     }
   }
 
   getAllLabels() {
-    return [this.getLabel(ACCIDENTAL_MODE.sharp), this.getLabel(ACCIDENTAL_MODE.flat)];
+    return [
+      this.getLabel(ACCIDENTAL_MODE.sharp),
+      this.getLabel(ACCIDENTAL_MODE.flat),
+    ];
   }
 }
 
@@ -65,4 +68,4 @@ const notes = [
   new AccidentalNote(9, "F", "G"),
   new Note(10, "G"),
   new AccidentalNote(11, "G", "A"),
-]
+];

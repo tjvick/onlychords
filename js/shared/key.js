@@ -57,7 +57,7 @@ export class Key {
         nSemitonesFromRoot
       ];
     } else if (rootKey.quality === CHORD_QUALITY.diminished) {
-      return { 0: "I"}[nSemitonesFromRoot];
+      return { 0: "I" }[nSemitonesFromRoot];
     }
   }
 }

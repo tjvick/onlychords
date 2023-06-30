@@ -12,7 +12,8 @@ export class PianoSemiTone {
     const keyIndex = rootKeyIndex + (chordSemitone.position % 12);
     this.xPosition =
       keyIndex * pianoKeyStyles.keyWidth + pianoKeyStyles.keyWidth / 2;
-    this.yPosition = chordSemitone.position > 12 ? pianoKeyStyles.keyHeight + 40 : 0;
+    this.yPosition =
+      chordSemitone.position > 12 ? pianoKeyStyles.keyHeight + 40 : 0;
   }
 
   contains(ctx, x, y) {
@@ -26,7 +27,14 @@ export class PianoSemiTone {
   drawShape(ctx, isActive) {
     const fillStyle = isActive ? toneColors[this.label] : "lightgray";
     const strokeStyle = isActive ? "black" : "lightgray";
-    return drawEllipse(ctx, this.xPosition, this.yPosition, 0, fillStyle, strokeStyle);
+    return drawEllipse(
+      ctx,
+      this.xPosition,
+      this.yPosition,
+      0,
+      fillStyle,
+      strokeStyle
+    );
   }
 
   writeLabel(ctx) {

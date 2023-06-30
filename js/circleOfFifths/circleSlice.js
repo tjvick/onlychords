@@ -1,9 +1,9 @@
 import { KeySector } from "./keySector";
 import { CHORD_QUALITY } from "../shared/constants";
 import { circleStyles } from "./shared";
-import {circleFillColors, font} from "../shared/theme";
-import {noteFromIndex} from "../shared/note";
-import {Key} from "../shared/key";
+import { circleFillColors, font } from "../shared/theme";
+import { noteFromIndex } from "../shared/note";
+import { Key } from "../shared/key";
 
 export class CircleOfFifthsSlice {
   constructor(circlePositionIndex) {
@@ -49,7 +49,6 @@ export class CircleOfFifthsSlice {
   }
 
   draw(ctx, activeKey, chordsInKeyVisible) {
-
     this.majorKeySector.draw(ctx, activeKey, chordsInKeyVisible);
     this.minorKeySector.draw(ctx, activeKey, chordsInKeyVisible);
     this.diminishedKeySector.draw(ctx, activeKey, chordsInKeyVisible);

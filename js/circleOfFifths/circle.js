@@ -1,6 +1,6 @@
-import {setKey} from "../shared/state";
-import {ClickableCanvas} from "../shared/canvas";
-import {CircleOfFifthsSlice} from "./circleSlice";
+import { setKey } from "../shared/state";
+import { ClickableCanvas } from "../shared/canvas";
+import { CircleOfFifthsSlice } from "./circleSlice";
 
 const canvasSize = {
   width: 500,
@@ -14,7 +14,12 @@ export class CircleOfFifths {
   keySectors = [];
 
   constructor() {
-    this.canvas = new ClickableCanvas("circle-canvas", canvasSize.width, canvasSize.height, canvasSize.scaleFactor);
+    this.canvas = new ClickableCanvas(
+      "circle-canvas",
+      canvasSize.width,
+      canvasSize.height,
+      canvasSize.scaleFactor
+    );
     this.ctx = this.canvas.ctx;
   }
 
@@ -27,8 +32,10 @@ export class CircleOfFifths {
     const canvasBox = event.target.getBoundingClientRect();
     const xScaleRatio = canvasBox.width / canvasSize.width;
     const yScaleRatio = canvasBox.height / canvasSize.height;
-    const x = (event.clientX - canvasBox.left) * canvasSize.scaleFactor / xScaleRatio;
-    const y = (event.clientY - canvasBox.top) * canvasSize.scaleFactor / yScaleRatio;
+    const x =
+      ((event.clientX - canvasBox.left) * canvasSize.scaleFactor) / xScaleRatio;
+    const y =
+      ((event.clientY - canvasBox.top) * canvasSize.scaleFactor) / yScaleRatio;
 
     for (const keySector of this.keySectors) {
       if (keySector.contains(this.ctx, x, y)) {
@@ -44,7 +51,7 @@ export class CircleOfFifths {
       if (clickedKeySector !== null) {
         setKey(clickedKeySector.key);
       }
-    })
+    });
   }
 
   drawSlices(ctx, activeKey, chordsInKeyVisible) {
@@ -55,7 +62,7 @@ export class CircleOfFifths {
       this.keySectors.push(slice.majorKeySector);
       this.keySectors.push(slice.minorKeySector);
       this.keySectors.push(slice.diminishedKeySector);
-    })
+    });
   }
 
   draw(state) {

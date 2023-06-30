@@ -28,9 +28,9 @@ export const circleFillColors = {
   minor: "hsl(210, 100%, 91%)",
   diminished: "hsl(310, 100%, 85%)",
   gray: "hsl(120, 35%, 90%)",
-}
+};
 
 export const font = {
-  note: 'Gothic A1',
-  scaleDegree: 'Times New Roman'
-}
+  note: "Gothic A1",
+  scaleDegree: "Times New Roman",
+};
