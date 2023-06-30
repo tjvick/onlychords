@@ -3,6 +3,7 @@ import {instruments} from "./instrument";
 import {noteFromIndex} from "./note";
 import {Key} from "./key";
 import {highlightChordVariation, redrawAll, redrawCircle, redrawFretboard, redrawPiano} from "./commands";
+import {CHORD_VARIATIONS} from "./chordVariations";
 
 let state = {
   activeKey: new Key(noteFromIndex(3), CHORD_QUALITY.major),
@@ -15,21 +16,21 @@ let state = {
 export function setKey(key) {
   if (!key.is(state.activeKey)) {
     if (key.quality !== state.activeKey.quality) {
-      state.activeTones = key.quality === 'major'
-        ? new Set([0, 4, 7])
-        : new Set([0, 3, 7]);
+      if (key.quality === CHORD_QUALITY.major) {
+        changeStateForChordVariation(CHORD_VARIATIONS.X);
+      } else if (key.quality === CHORD_QUALITY.minor) {
+        changeStateForChordVariation(CHORD_VARIATIONS.Xm);
+      } else if (key.quality === CHORD_QUALITY.diminished) {
+        changeStateForChordVariation(CHORD_VARIATIONS.Xdim);
+      }
     }
     state.activeKey = key;
-
     redrawAll();
-    highlightChordVariation();
   }
 }
 
 export function setChordVariation(chordVariation) {
-  state.activeTones = new Set(chordVariation.semitoneNumbers);
-  state.optionalActiveTones = new Set(chordVariation.optionalSemitoneNumbers);
-
+  changeStateForChordVariation();
   redrawFretboard();
   redrawPiano();
   highlightChordVariation();
@@ -64,5 +65,10 @@ export function toggleSemitone(clickedSemitone) {
   // setOptionalTones(state.activeTones);
 }
 
+
+function changeStateForChordVariation(chordVariation) {
+  state.activeTones = new Set(chordVariation.semitoneNumbers);
+  state.optionalActiveTones = new Set(chordVariation.optionalSemitoneNumbers);
+}
 
 export default state;

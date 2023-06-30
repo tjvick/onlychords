@@ -14,6 +14,10 @@ export class Key {
   }
 
   isAChordInKey(anotherKey) {
+    console.log(this.quality, this.rootNote.index, anotherKey);
+    if (anotherKey.quality === CHORD_QUALITY.diminished) {
+      return false;
+    }
     const validScaleDegrees =
       scaleDegreesInKey[anotherKey.quality][this.quality];
     return validScaleDegrees.includes(this.relativeScaleDegree(anotherKey));
@@ -52,6 +56,8 @@ export class Key {
       return { 0: "I", 2: "II", 3: "III", 5: "IV", 7: "V", 8: "VI", 10: "VII" }[
         nSemitonesFromRoot
       ];
+    } else if (rootKey.quality === CHORD_QUALITY.diminished) {
+      return { 0: "I"}[nSemitonesFromRoot];
     }
   }
 }

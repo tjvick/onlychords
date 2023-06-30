@@ -29,14 +29,12 @@ export class CircleOfFifthsSlice {
       labelFonts: [`24px ${font.note}`],
       superscriptFont: `15px ${font.scaleDegree}`,
       shadeColor: circleFillColors.gray,
-      labelColor: "black",
     });
     this.minorKeySector = new KeySector(circlePositionIndex, minorKey, {
       radii: [circleStyles.innerRadius, circleStyles.middleRadius],
       labelFonts: [`19px ${font.note}`],
       superscriptFont: `15px ${font.scaleDegree}`,
       shadeColor: circleFillColors.gray,
-      labelColor: "black",
     });
     this.diminishedKeySector = new KeySector(
       circlePositionIndex,
@@ -46,7 +44,6 @@ export class CircleOfFifthsSlice {
         labelFonts: [`16px ${font.note}`, `16px ${font.note}`],
         superscriptFont: `15px ${font.scaleDegree}`,
         shadeColor: circleFillColors.gray,
-        labelColor: "gray",
       }
     );
   }

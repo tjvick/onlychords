@@ -54,6 +54,7 @@ export class CircleOfFifths {
 
       this.keySectors.push(slice.majorKeySector);
       this.keySectors.push(slice.minorKeySector);
+      this.keySectors.push(slice.diminishedKeySector);
     })
   }
 

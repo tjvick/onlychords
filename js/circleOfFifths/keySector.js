@@ -10,7 +10,6 @@ export class KeySector {
     this.labelFonts = formatConfig.labelFonts;
     this.superscriptFont = formatConfig.superscriptFont;
     this.shadeColor = formatConfig.shadeColor;
-    this.labelColor = formatConfig.labelColor;
   }
 
   contains(ctx, x, y) {
@@ -32,7 +31,7 @@ export class KeySector {
       drawOnTop(() => this.#drawBorder(ctx, "black"));
     }
     this.#writeLabel(ctx);
-    if (isKeyActive) {
+    if (isKeyActive && chordsInKeyVisible) {
       this.#writeCornerNumber(ctx, currentActiveKey);
     }
     if (chordsInKeyVisible && isChordInKey) {
@@ -59,7 +58,7 @@ export class KeySector {
       ctx,
       keyLabels,
       this.labelFonts,
-      this.labelColor
+      "black"
     );
   }
 
