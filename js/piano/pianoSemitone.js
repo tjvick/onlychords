@@ -9,10 +9,10 @@ export class PianoSemiTone {
     this.label = chordSemitone.label;
     this.position = chordSemitone.position;
 
-    const keyIndex = rootKeyIndex + chordSemitone.position;
+    const keyIndex = rootKeyIndex + (chordSemitone.position % 12);
     this.xPosition =
       keyIndex * pianoKeyStyles.keyWidth + pianoKeyStyles.keyWidth / 2;
-    this.yPosition = 0;
+    this.yPosition = chordSemitone.position > 12 ? pianoKeyStyles.keyHeight + 40 : 0;
   }
 
   contains(ctx, x, y) {

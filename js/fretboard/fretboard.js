@@ -44,22 +44,24 @@ export class Fretboard {
     }
   }
 
-  drawSemitones(instrument, activeKey, activeTones) {
+  drawSemitones(instrument, activeKey, activeTones, optionalActiveTones) {
     activeTones.forEach((activeTone) => {
       const semitone = allSemitones.find(
         (note) => note.position === activeTone
       );
+      const isOptional = optionalActiveTones.has(activeTone);
       const fretboardSemitone = new FretboardSemitone(
         instrument,
         activeKey.rootNote.index,
-        semitone
+        semitone,
+        isOptional
       );
       fretboardSemitone.draw(this.ctx);
     });
   }
 
   draw(state) {
-    const { activeKey, activeTones, instrument } = state;
+    const { activeKey, activeTones, instrument, optionalActiveTones } = state;
 
     this.reset();
 
@@ -70,7 +72,7 @@ export class Fretboard {
     onFretboard(this.ctx, () => {
       this.drawStrings(instrument);
       this.drawFrets(instrument);
-      this.drawSemitones(instrument, activeKey, activeTones);
+      this.drawSemitones(instrument, activeKey, activeTones, optionalActiveTones);
     });
   }
 }

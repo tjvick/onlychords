@@ -8,6 +8,7 @@ let state = {
   activeKey: new Key(noteFromIndex(3), CHORD_QUALITY.major),
   instrument: instruments["guitar"],
   activeTones: new Set([0, 4, 7]),
+  optionalActiveTones: new Set([]),
   chordsInKeyVisible: true,
 };
 
@@ -27,6 +28,7 @@ export function setKey(key) {
 
 export function setChordVariation(chordVariation) {
   state.activeTones = new Set(chordVariation.semitoneNumbers);
+  state.optionalActiveTones = new Set(chordVariation.optionalSemitoneNumbers);
 
   redrawFretboard();
   redrawPiano();
@@ -59,6 +61,7 @@ export function toggleSemitone(clickedSemitone) {
   redrawPiano();
   redrawFretboard();
   highlightChordVariation();
+  // setOptionalTones(state.activeTones);
 }
 
 

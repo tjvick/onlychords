@@ -5,7 +5,7 @@ import { instruments } from "./shared/instrument";
 function init() {
   const fontFile = new FontFace(
     "Gothic A1",
-    "url(./fonts/GothicA1-Regular.ttf)"
+    "url(fonts/GothicA1-Regular.ttf)"
   );
   document.fonts.add(fontFile);
   fontFile.load().then(() => {

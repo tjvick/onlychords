@@ -4,10 +4,11 @@ import { toneColors } from "../shared/theme";
 import { drawEllipse } from "../shared/utils";
 
 export class FretboardSemitone {
-  constructor(instrument, chordRootNumber, semitone) {
+  constructor(instrument, chordRootNumber, semitone, isOptional) {
     this.instrument = instrument;
     this.label = semitone.label;
     this.position = semitone.position;
+    this.isOptional = isOptional;
 
     this.noteNumber = (chordRootNumber + semitone.position) % 12;
   }
@@ -38,7 +39,7 @@ export class FretboardSemitone {
             fretXPosition,
             stringYPosition,
             0,
-            toneColors[this.label],
+            this.isOptional ? "white" : toneColors[this.label],
             "black"
           );
 

@@ -1,6 +1,6 @@
 import {allSemitones} from "../shared/constants";
-import {isolatedTranslate, } from "../shared/utils";
-import {PianoKey} from "./pianoKey";
+import {isolate, isolatedTranslate,} from "../shared/utils";
+import {PianoKey, pianoKeyStyles} from "./pianoKey";
 import {PianoSemiTone} from "./pianoSemitone";
 import {ClickableCanvas} from "../shared/canvas";
 import {toggleSemitone} from "../shared/state";
@@ -12,7 +12,7 @@ const canvasSize = {
 };
 
 const pianoStyles = {
-  offsetX: 25,
+  offsetX: 48,
   offsetY: 25,
 };
 
@@ -30,7 +30,7 @@ export class Piano {
   }
 
   drawPianoKeys(activeKey) {
-    for (let ixKey = 0; ixKey <= 24; ixKey++) {
+    for (let ixKey = 0; ixKey <= 23; ixKey++) {
       const pianoKey = new PianoKey(ixKey);
       pianoKey.draw(this.ctx, activeKey.rootNote.index);
     }
@@ -43,6 +43,19 @@ export class Piano {
       const pianoSemitone = new PianoSemiTone(activeKey.rootNote.index, semitone);
       pianoSemitone.draw(this.ctx, isActive);
       this.semitones.push(pianoSemitone);
+    });
+  }
+
+  drawText(activeKey) {
+    const ctx = this.ctx;
+    const xText = pianoKeyStyles.keyWidth * activeKey.rootNote.index + 40;
+    const yText = pianoKeyStyles.keyHeight + 40;
+    isolate(ctx, () => {
+      ctx.font = "16px serif";
+      ctx.textAlign = "right";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "rgb(0, 0, 0)";
+      ctx.fillText("(+1 octave):", xText, yText);
     });
   }
 
@@ -81,6 +94,7 @@ export class Piano {
     onPiano(this.ctx, () => {
       this.drawPianoKeys(activeKey);
       this.drawSemitones(activeKey, activeTones);
+      this.drawText(activeKey);
     });
 
     this.addClickEventListener();
