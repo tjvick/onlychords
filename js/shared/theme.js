@@ -23,7 +23,7 @@ export const toneColors = {
 };
 
 export const circleFillColors = {
-  active: "hsl(120, 100%, 55%)",
+  active: "hsl(60, 100%, 50%)",
   major: "hsl(60, 100%, 80%)",
   minor: "hsl(210, 100%, 91%)",
   diminished: "hsl(310, 100%, 85%)",
