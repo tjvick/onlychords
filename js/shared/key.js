@@ -14,7 +14,6 @@ export class Key {
   }
 
   isAChordInKey(anotherKey) {
-    console.log(this.quality, this.rootNote.index, anotherKey);
     if (anotherKey.quality === CHORD_QUALITY.diminished) {
       return false;
     }

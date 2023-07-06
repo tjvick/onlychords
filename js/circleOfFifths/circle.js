@@ -37,6 +37,9 @@ export class CircleOfFifths {
     const y =
       ((event.clientY - canvasBox.top) * canvasSize.scaleFactor) / yScaleRatio;
 
+    const imageData = this.ctx.getImageData(x, y, 1, 1);
+    console.log({r: imageData.data[0], g: imageData.data[1], b: imageData.data[2]});
+
     for (const keySector of this.keySectors) {
       if (keySector.contains(this.ctx, x, y)) {
         return keySector;

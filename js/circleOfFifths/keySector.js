@@ -17,7 +17,12 @@ export class KeySector {
   }
 
   contains(ctx, x, y) {
-    return this.sector.contains(ctx, x, y);
+    const imageData = ctx.getImageData(x, y, 1, 1);
+    return this.hasColor(ctx, ...imageData.data);
+  }
+
+  hasColor(ctx, r, g, b) {
+    return this.shadeColor === `rgba(${r},${g},${b})`
   }
 
   draw(ctx, currentActiveKey, chordsInKeyVisible) {
@@ -25,8 +30,10 @@ export class KeySector {
     const isChordInKey = this.key.isAChordInKey(currentActiveKey);
 
     if (chordsInKeyVisible && isChordInKey) {
-      this.#shade(ctx);
+      // this.#shade(ctx);
     }
+    this.#shade(ctx);
+
     if (isKeyActive) {
       this.#highlight(ctx);
     }
@@ -36,10 +43,10 @@ export class KeySector {
     }
     this.#writeLabel(ctx);
     if (isKeyActive && chordsInKeyVisible) {
-      this.#writeCornerNumber(ctx, currentActiveKey);
+      // this.#writeCornerNumber(ctx, currentActiveKey);
     }
     if (chordsInKeyVisible && isChordInKey) {
-      this.#writeCornerNumber(ctx, currentActiveKey);
+      // this.#writeCornerNumber(ctx, currentActiveKey);
     }
   }
 
