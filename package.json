@@ -16,8 +16,8 @@
     "not dead"
   ],
   "scripts": {
-    "build": "parcel build index.html && npm run copy-fonts",
-    "dev": "parcel index.html --open",
+    "build": "parcel build index.html sandbox.html && npm run copy-fonts",
+    "dev": "parcel index.html sandbox.html --open",
     "copy-fonts": "cp -PR static/fonts ./dist",
     "format": "prettier --write .",
     "start": "npm run build && npm run dev",

@@ -6,23 +6,23 @@ import { CHORD_VARIATIONS } from "./chordVariations";
 import { ACCIDENTAL_MODE } from "./constants";
 
 const circleOfFifths = new CircleOfFifths();
-const piano = new Piano();
-const fretboard = new Fretboard();
+// const piano = new Piano();
+// const fretboard = new Fretboard();
 
 export function redrawAll() {
-  piano.draw(state);
-  fretboard.draw(state);
+  // piano.draw(state);
+  // fretboard.draw(state);
   circleOfFifths.draw(state);
-  rewriteChordVariations(state);
-  highlightChordVariation();
+  // rewriteChordVariations(state);
+  // highlightChordVariation();
 }
 
 export function redrawPiano() {
-  piano.draw(state);
+  // piano.draw(state);
 }
 
 export function redrawFretboard() {
-  fretboard.draw(state);
+  // fretboard.draw(state);
 }
 
 export function redrawCircle() {
