@@ -36,7 +36,7 @@ export function setKey(key) {
 }
 
 export function setChordVariation(chordVariation) {
-  changeStateForChordVariation();
+  changeStateForChordVariation(chordVariation);
   redrawFretboard();
   redrawPiano();
   highlightChordVariation();
