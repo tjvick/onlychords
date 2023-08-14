@@ -1,5 +1,5 @@
 import { isolate } from "../shared/utils";
-import { fretboardStyles, getFretPosition } from "./shared";
+import {fretboardStyles, getFretPosition, getStringYPosition} from "./shared";
 
 class SingledFretboardString {
   constructor(instrument, stringNumber) {
@@ -9,19 +9,17 @@ class SingledFretboardString {
   }
 
   getYPosition() {
-    let outerBuffer = 5;
-    const stringsWidth = fretboardStyles.neckWidth - 2 * outerBuffer;
-    const stringSpacing = stringsWidth / (this.instrument.nStrings - 1);
-    return outerBuffer + this.stringNumber * stringSpacing;
+    return getStringYPosition(this.stringNumber, this.instrument.nStrings);
   }
 
   drawLine(ctx) {
     const y = this.getYPosition();
+    const xFirstFret = getFretPosition(this.instrument.startingFrets[this.stringNumber])
     const xLastFret = getFretPosition(this.instrument.nFrets);
     const xEnd = xLastFret + 15;
     isolate(ctx, () => {
       ctx.beginPath();
-      ctx.moveTo(0, y);
+      ctx.moveTo(xFirstFret, y);
       ctx.lineTo(xEnd, y);
       ctx.stroke();
     });

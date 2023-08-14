@@ -1,5 +1,4 @@
-import { getFretboardString } from "./fretboardString";
-import { getFretPosition } from "./shared";
+import {getFretPosition, getStringYPosition} from "./shared";
 import { toneColors } from "../shared/theme";
 import { drawEllipse } from "../shared/utils";
 
@@ -23,16 +22,15 @@ export class FretboardSemitone {
       stringNumber < this.instrument.nStrings;
       stringNumber++
     ) {
-      const fretboardString = getFretboardString(this.instrument, stringNumber);
-      const stringYPosition = fretboardString.getYPosition();
-      const stringBaseNote = this.instrument.stringTuning[stringNumber];
+      const stringYPosition = getStringYPosition(stringNumber, this.instrument.nStrings);
+      const stringOpenNote = this.instrument.stringTuning[stringNumber];
       for (
         let fretNumber = 0;
-        fretNumber < this.instrument.nFrets;
+        fretNumber < this.instrument.nFrets - this.instrument.startingFrets[stringNumber];
         fretNumber++
       ) {
-        const fretXPosition = getFretPosition(fretNumber);
-        const fretNote = (stringBaseNote + fretNumber) % 12;
+        const fretXPosition = getFretPosition(fretNumber+this.instrument.startingFrets[stringNumber]);
+        const fretNote = (stringOpenNote + fretNumber) % 12;
         if (fretNote === this.noteNumber) {
           drawEllipse(
             ctx,

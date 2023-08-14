@@ -40,7 +40,7 @@ export class Fretboard {
 
   drawFrets(instrument) {
     for (let fretNumber = 0; fretNumber <= instrument.nFrets; fretNumber++) {
-      const fret = new FretboardFret(fretNumber);
+      const fret = new FretboardFret(instrument, fretNumber);
       fret.draw(this.ctx);
     }
   }
@@ -48,7 +48,7 @@ export class Fretboard {
   drawSemitones(instrument, activeKey, activeTones, optionalActiveTones) {
     activeTones.forEach((activeTone) => {
       const semitone = allSemitones.find(
-        (note) => note.position === activeTone
+        note => note.position === activeTone
       );
       const isOptional = optionalActiveTones.has(activeTone);
       const fretboardSemitone = new FretboardSemitone(
