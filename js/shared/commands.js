@@ -76,9 +76,6 @@ export function rewriteChordVariations(state) {
     button.addEventListener("click", () => {
       setChordVariation(variation);
     });
-    // button.addEventListener("touchstart", () => {
-    //   setChordVariation(variation);
-    // });
 
     // add button
     container.appendChild(button);

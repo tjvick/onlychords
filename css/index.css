@@ -49,6 +49,7 @@ html {
 
 .chord-variations-section {
   width: 100%;
+  box-sizing: border-box;
   max-width: 1200px;
   margin: 0 auto 40px auto;
   background-color: hsl(0, 0%, 85%);
