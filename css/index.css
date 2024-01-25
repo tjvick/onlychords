@@ -5,13 +5,42 @@ html {
 .top-bar {
   background-color: hsl(120, 100%, 0%);
   padding: 10px 0;
-  margin-bottom: 20px;
   color: white;
 }
 
 .top-bar h1 {
   margin: 0;
   text-align: center;
+}
+
+.settings-bar {
+  background-color: hsl(120, 35%, 90%);
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.instrument-selector {
+  text-align: center;
+}
+
+.instrument-selector label {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.instrument-selector select {
+  border: none;
+  padding: 0.3rem 2rem 0.3rem 0.6rem;
+  background-color: transparent;
+  width: 120px;
+  text-align: left;
+  font-size: 18px;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath fill='%23666' d='M8.187 11.748l6.187-6.187-1.06-1.061-5.127 5.127L3.061 4.5 2 5.561z'/%3E%3C/svg%3E");
+  background-position: right .5rem center;
+  background-repeat: no-repeat;
+  background-size: 1rem;
 }
 
 .circle-container {
@@ -98,24 +127,4 @@ html {
 
 .chords-in-key-toggle input {
   margin-right: 5px;
-}
-
-.instrument-selector {
-  text-align: center;
-  margin: 25px auto 15px;
-}
-
-.instrument-selector .legend {
-  display: inline-block;
-  margin: 0 15px 0 0;
-}
-
-.instrument-selector fieldset {
-  display: inline-block;
-}
-
-.instrument-selector label {
-  font-size: 20px;
-  padding: 3px;
-  margin-right: 20px;
 }

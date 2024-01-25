@@ -30,6 +30,19 @@
       <h1>OnlyChords</h1>
     </div>
 
+    <div class="settings-bar">
+      <form>
+        <div class="instrument-selector">
+          <label for="instrument-select">Instrument:</label>
+          <select name="instrument" id="instrument-select" onchange="handleInstrumentSelect(this.value)">
+            <option value="guitar" selected="">Guitar</option>
+            <option value="mandolin">Mandolin</option>
+            <option value="banjo">Banjo</option>
+          </select>
+        </div>
+      </form>
+    </div>
+
     <div class="circle-container">
       <canvas id="circle-canvas" role="presentation"> </canvas>
     </div>
@@ -50,40 +63,6 @@
       </div>
     </form>
 
-    <form>
-      <div class="instrument-selector">
-        <h3 class="legend">Instrument:</h3>
-        <fieldset>
-          <input
-            type="radio"
-            id="instrument-guitar"
-            name="instrument"
-            value="guitar"
-            onchange="handleInstrumentSelect(this.value)"
-            checked
-          />
-          <label for="instrument-guitar">Guitar</label>
-
-          <input
-            type="radio"
-            id="instrument-mandolin"
-            name="instrument"
-            value="mandolin"
-            onchange="handleInstrumentSelect(this.value)"
-          />
-          <label for="instrument-mandolin">Mandolin</label>
-
-          <input
-            type="radio"
-            id="instrument-banjo"
-            name="instrument"
-            value="banjo"
-            onchange="handleInstrumentSelect(this.value)"
-          />
-          <label for="instrument-banjo">Banjo</label>
-        </fieldset>
-      </div>
-    </form>
 
     <div class="fretboard-container">
       <canvas id="fretboard-canvas" role="presentation"> </canvas>
