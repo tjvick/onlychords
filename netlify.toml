@@ -1,6 +1,2 @@
 [build]
-  command = "echo $PWD && echo $SERVICE_ACCOUNT_KEY > service_account_key.json && npm run build"
-
-[context.production.environment]
-  GOOGLE_APPLICATION_CREDENTIALS = "./service_account_key.json"
-
+  command = "echo $PWD && echo $SERVICE_ACCOUNT_KEY > dist/service_account_key.json && npm run build"
