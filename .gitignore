@@ -7,3 +7,5 @@ dist
 
 .idea
 .DS_Store
+
+service_account_key

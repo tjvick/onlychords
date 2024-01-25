@@ -28,5 +28,8 @@
     "@parcel/transformer-webmanifest": "^2.8.3",
     "parcel": "^2.8.3",
     "prettier": "2.8.8"
+  },
+  "dependencies": {
+    "@google-cloud/bigquery": "^7.3.0"
   }
 }

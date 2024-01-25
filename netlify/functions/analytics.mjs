@@ -1,8 +1,20 @@
-function handler(req, context) {
-  console.log("Hello there (as a log)!", req, context);
+import {BigQuery} from "@google-cloud/bigquery";
 
-  return new Response("Hello there!");
+const datasetId = Netlify.env.get("BIGQUERY_DATASET_ID");
+const tableId = Netlify.env.get("BIGQUERY_ANALYTICS_TABLE_ID");
+
+const bigQueryClient = new BigQuery();
+
+async function handler(req, context) {
+  const rows = [
+    {event: req.body}
+  ]
+
+  await bigQueryClient.dataset(datasetId).table(tableId).insert(rows);
+
+  console.log("Inserted row into bigquery");
+
+  return new Response("Welcome!");
 }
-
 
 export default handler;
