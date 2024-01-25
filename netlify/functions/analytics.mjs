@@ -12,6 +12,7 @@ export const handler = async (req, context) => {
   const googleAuth = new GoogleAuth({
     credentials: acctKey,
     scopes: 'https://www.googleapis.com/auth/cloud-platform',
+    projectId: await acctKey.projectId,
   });
 
   const projectId = await googleAuth.getProjectId()
