@@ -14,16 +14,17 @@ const googleAuth = new GoogleAuth({
   scopes: 'https://www.googleapis.com/auth/cloud-platform',
 });
 
-const projectId = await googleAuth.getProjectId()
-const client = await googleAuth.getClient();
-console.log({projectId});
-
-const bigQueryClient = new BigQuery({
-  projectId: projectId,
-  authClient: client
-});
 
 async function handler(req, context) {
+  const projectId = await googleAuth.getProjectId()
+  const client = await googleAuth.getClient();
+  console.log({projectId});
+
+  const bigQueryClient = new BigQuery({
+    projectId: projectId,
+    authClient: client
+  });
+
   const rows = [
     {event: req.body}
   ]
