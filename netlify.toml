@@ -1,2 +1,2 @@
 [build]
-  command = "echo $PWD && echo $SERVICE_ACCOUNT_KEY > dist/service_account_key.json && npm run build"
+  command = "echo $PWD && mkdir dist && echo $SERVICE_ACCOUNT_KEY > dist/service_account_key.json && npm run build"
