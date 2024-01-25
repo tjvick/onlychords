@@ -15,11 +15,13 @@ const googleAuth = new GoogleAuth({
   scopes: 'https://www.googleapis.com/auth/cloud-platform',
 });
 
-console.log(googleAuth.getProjectId());
+const projectId = await googleAuth.getProjectId()
+const client = await googleAuth.getClient();
+console.log({projectId});
 
 const bigQueryClient = new BigQuery({
-  projectId: googleAuth.getProjectId(),
-  authClient: googleAuth
+  projectId: projectId,
+  authClient: client
 });
 
 async function handler(req, context) {
