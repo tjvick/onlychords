@@ -15,7 +15,7 @@ const googleAuth = new GoogleAuth({
 });
 
 
-async function handler(req, context) {
+export default async (req, context) => {
   const projectId = await googleAuth.getProjectId()
   const client = await googleAuth.getClient();
   console.log({projectId});
@@ -35,5 +35,3 @@ async function handler(req, context) {
 
   return new Response("Welcome!");
 }
-
-export default handler;
