@@ -15,6 +15,8 @@ const googleAuth = new GoogleAuth({
   scopes: 'https://www.googleapis.com/auth/cloud-platform',
 });
 
+console.log(googleAuth.getProjectId());
+
 const bigQueryClient = new BigQuery({
   projectId: googleAuth.getProjectId(),
   authClient: googleAuth
