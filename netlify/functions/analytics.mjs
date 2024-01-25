@@ -10,11 +10,7 @@ export const handler = async (req, context) => {
   console.log(acctKey);
 
   const googleAuth = new GoogleAuth({
-    credentials: {
-      client_email: acctKey.client_email,
-      private_key: acctKey.private_key,
-      projectId: acctKey.project_id,
-    },
+    credentials: acctKey,
     scopes: 'https://www.googleapis.com/auth/cloud-platform',
   });
 
