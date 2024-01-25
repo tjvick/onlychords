@@ -22,7 +22,7 @@ This project uses Node.js and npm.
 Website events and analytics are stored in a BigQuery table within Google Cloud Platform.
 
 The BigQuery dataset and table IDs are defined in the `opentofu/main.tf` file,
-and are set as netlify environment variables in `netlify.toml`.
+and are set as netlify environment variables in the netlify UI.
 
 Events are written to BigQuery via a netlify function (see `netlify/functions` directory)
 

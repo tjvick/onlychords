@@ -2,7 +2,5 @@
   command = "echo $SERVICE_ACCOUNT_KEY > service_account_key.json && npm run build"
 
 [context.production.environment]
-  BIGQUERY_DATASET_ID = "onlychords_dataset"
-  BIGQUERY_ANALYTICS_TABLE_ID = "analytics"
   GOOGLE_APPLICATION_CREDENTIALS = "./service_account_key.json"
 
