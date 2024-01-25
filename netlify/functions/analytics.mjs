@@ -7,12 +7,10 @@ export const handler = async (req, context) => {
   const datasetId = process.env.BIGQUERY_DATASET_ID;
   const tableId = process.env.BIGQUERY_ANALYTICS_TABLE_ID;
 
-  console.log(acctKey);
-
   const googleAuth = new GoogleAuth({
     credentials: acctKey,
     scopes: 'https://www.googleapis.com/auth/cloud-platform',
-    projectId: acctKey.projectId,
+    projectId: acctKey.project_id,
   });
 
   const projectId = await googleAuth.getProjectId()
