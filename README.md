@@ -26,6 +26,9 @@ and are set as netlify environment variables in the netlify UI.
 
 Events are written to BigQuery via a netlify function (see `netlify/functions` directory)
 
+The netlify function uses a service account key, which is copied from an environment variable
+into `netlify/functions/service_account_key.json` as part of the build.
+
 ## Infrastructure as Code, using OpenTofu
 
 OpenTofu is used to deploy resources to GCP
