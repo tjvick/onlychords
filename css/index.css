@@ -23,8 +23,8 @@ html {
 #settings-bar form {
   display: flex;
   justify-content: center;
-  gap: 1em;
-  margin: 0 1em;
+  gap: 0.5em;
+  margin: 0 0.5em;
   flex-wrap: wrap;
 }
 
@@ -38,7 +38,7 @@ html {
 .setting-selector label {
   display: block;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
   padding-left: 0.3rem;
 }
 
@@ -47,7 +47,7 @@ html {
   padding: 0.3rem 2rem 0.3rem 0.6rem;
   border-radius: 0.3rem;
   text-align: left;
-  font-size: 18px;
+  font-size: 17px;
   -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath fill='%23666' d='M8.187 11.748l6.187-6.187-1.06-1.061-5.127 5.127L3.061 4.5 2 5.561z'/%3E%3C/svg%3E");
   background-position: right .5rem center;
@@ -57,11 +57,34 @@ html {
 }
 
 #instrument-selector select {
-  min-width: 130px;
+  min-width: 120px;
 }
 
 #tuning-selector select {
-  min-width: 250px;
+  min-width: 240px;
+}
+
+@media only screen and (min-width: 500px) {
+  #settings-bar form {
+    gap: 1em;
+    margin: 0 1em;
+  }
+
+  .setting-selector label {
+    font-size: 16px;
+  }
+
+  .setting-selector select {
+    font-size: 18px;
+  }
+
+  #instrument-selector select {
+    min-width: 130px;
+  }
+
+  #tuning-selector select {
+    min-width: 250px;
+  }
 }
 
 
