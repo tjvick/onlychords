@@ -30,14 +30,19 @@
       <h1>OnlyChords</h1>
     </div>
 
-    <div class="settings-bar">
+    <div id="settings-bar">
       <form>
-        <div class="instrument-selector">
-          <label for="instrument-select">Instrument:</label>
+        <div class="setting-selector" id="instrument-selector">
+          <label for="instrument-select">Instrument</label>
           <select name="instrument" id="instrument-select" onchange="handleInstrumentSelect(this.value)">
             <option value="guitar" selected="">Guitar</option>
             <option value="mandolin">Mandolin</option>
             <option value="banjo">Banjo</option>
+          </select>
+        </div>
+        <div class="setting-selector" id="tuning-selector">
+          <label for="tuning-select">Tuning</label>
+          <select name="tuning" id="tuning-select" onchange="handleTuningSelect(this.value)">
           </select>
         </div>
       </form>

@@ -3,8 +3,9 @@ import { toneColors } from "../shared/theme";
 import { drawEllipse } from "../shared/utils";
 
 export class FretboardSemitone {
-  constructor(instrument, chordRootNumber, semitone, isOptional) {
+  constructor(instrument, tuning, chordRootNumber, semitone, isOptional) {
     this.instrument = instrument;
+    this.tuning = tuning;
     this.label = semitone.label;
     this.position = semitone.position;
     this.isOptional = isOptional;
@@ -23,7 +24,7 @@ export class FretboardSemitone {
       stringNumber++
     ) {
       const stringYPosition = getStringYPosition(stringNumber, this.instrument.nStrings);
-      const stringOpenNote = this.instrument.stringTuning[stringNumber];
+      const stringOpenNote = this.tuning.stringTuning[stringNumber];
       for (
         let fretNumber = 0;
         fretNumber < this.instrument.nFrets - this.instrument.startingFrets[stringNumber];

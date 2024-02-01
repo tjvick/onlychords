@@ -8,15 +8,17 @@ import {
   redrawCircle,
   redrawFretboard,
   redrawPiano,
+  updateTuningOptions
 } from "./commands";
 import { CHORD_VARIATIONS } from "./chordVariations";
 
 let state = {
   activeKey: new Key(noteFromIndex(3), CHORD_QUALITY.major),
   instrument: instruments["guitar"],
+  tuning: instruments["guitar"].tunings["guitar-standard"],
   activeTones: new Set([0, 4, 7]),
   optionalActiveTones: new Set([]),
-  chordsInKeyVisible: true,
+  chordsInKeyVisible: true
 };
 
 export function setKey(key) {
@@ -54,8 +56,15 @@ export function setInstrument(instrument) {
   if (instrument.name !== state.instrument.name) {
     state.instrument = instrument;
 
+    updateTuningOptions();
     redrawFretboard();
   }
+}
+
+export function setTuningById(tuningId) {
+  state.tuning = state.instrument.tunings[tuningId];
+
+  redrawFretboard();
 }
 
 export function toggleSemitone(clickedSemitone) {
@@ -68,7 +77,6 @@ export function toggleSemitone(clickedSemitone) {
   redrawPiano();
   redrawFretboard();
   highlightChordVariation();
-  // setOptionalTones(state.activeTones);
 }
 
 function changeStateForChordVariation(chordVariation) {

@@ -13,27 +13,39 @@ html {
   text-align: center;
 }
 
-.settings-bar {
+#settings-bar {
   background-color: hsl(120, 35%, 90%);
   padding: 10px 0;
   margin-bottom: 20px;
-}
-
-.instrument-selector {
   text-align: center;
 }
 
-.instrument-selector label {
-  display: inline-block;
-  font-weight: 600;
-  font-size: 18px;
+#settings-bar form {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin: 0 1em;
+  flex-wrap: wrap;
 }
 
-.instrument-selector select {
+.setting-selector {
+  flex: 1;
+  display: inline-block;
+  text-align: left;
+  max-width: 200px;
+}
+
+.setting-selector label {
+  display: block;
+  font-weight: 600;
+  font-size: 16px;
+  padding-left: 0.3rem;
+}
+
+.setting-selector select {
   border: none;
   padding: 0.3rem 2rem 0.3rem 0.6rem;
-  background-color: transparent;
-  width: 130px;
+  border-radius: 0.3rem;
   text-align: left;
   font-size: 18px;
   -webkit-appearance: none;
@@ -41,7 +53,17 @@ html {
   background-position: right .5rem center;
   background-repeat: no-repeat;
   background-size: 1rem;
+  background-color: hsl(120, 0%, 100%);
 }
+
+#instrument-selector select {
+  min-width: 130px;
+}
+
+#tuning-selector select {
+  min-width: 200px;
+}
+
 
 .circle-container {
   width: 100%;

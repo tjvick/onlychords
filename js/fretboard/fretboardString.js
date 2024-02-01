@@ -2,10 +2,10 @@ import { isolate } from "../shared/utils";
 import {fretboardStyles, getFretPosition, getStringYPosition} from "./shared";
 
 class SingledFretboardString {
-  constructor(instrument, stringNumber) {
+  constructor(instrument, tuning, stringNumber) {
     this.instrument = instrument;
     this.stringNumber = stringNumber;
-    this.label = instrument.stringLabels[stringNumber];
+    this.label = tuning.stringLabels[stringNumber];
   }
 
   getYPosition() {
@@ -39,8 +39,8 @@ class SingledFretboardString {
 }
 
 class DoubledFretboardString extends SingledFretboardString {
-  constructor(instrument, stringNumber) {
-    super(instrument, stringNumber);
+  constructor(instrument, tuning, stringNumber) {
+    super(instrument, tuning, stringNumber);
   }
 
   getYPosition() {
@@ -67,11 +67,11 @@ class DoubledFretboardString extends SingledFretboardString {
   }
 }
 
-export function getFretboardString(instrument, stringNumber) {
+export function getFretboardString(instrument, tuning, stringNumber) {
   switch (instrument.doubleStrings) {
     case true:
-      return new DoubledFretboardString(instrument, stringNumber);
+      return new DoubledFretboardString(instrument, tuning, stringNumber);
     default:
-      return new SingledFretboardString(instrument, stringNumber);
+      return new SingledFretboardString(instrument, tuning, stringNumber);
   }
 }

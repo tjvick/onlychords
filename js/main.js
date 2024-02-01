@@ -1,11 +1,10 @@
-import { setChordsInKeyVisible, setInstrument } from "./shared/state";
+import { setChordsInKeyVisible, setInstrument, setTuningById } from "./shared/state";
 import { redrawAll } from "./shared/commands";
 import { instruments } from "./shared/instrument";
+import { sendAnalyticsEvent } from "./analytics.js";
 
 function init() {
-  addFontFileToDocument().then(() => {
-    redrawAll();
-  });
+  addFontFileToDocument().then(redrawAll);
 }
 
 function addFontFileToDocument() {
@@ -24,19 +23,14 @@ function handleChordsInKeyToggle(toggleElement) {
   setChordsInKeyVisible(toggleElement.checked);
 }
 
-window.handleInstrumentSelect = handleInstrumentSelect;
-window.handleChordsInKeyToggle = handleChordsInKeyToggle;
-
-
-const analyticsData = {
-  navigator: window.navigator
+function handleTuningSelect(tuningId) {
+  setTuningById(tuningId);
 }
 
-fetch('.netlify/functions/analytics', {
-  method: 'POST',
-  body: JSON.stringify(analyticsData)
-}).then(response => {
-  console.log("analytics function called");
-})
+window.handleInstrumentSelect = handleInstrumentSelect;
+window.handleChordsInKeyToggle = handleChordsInKeyToggle;
+window.handleTuningSelect = handleTuningSelect;
+
 
 init();
+sendAnalyticsEvent();

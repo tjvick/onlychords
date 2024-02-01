@@ -27,13 +27,13 @@ export class Fretboard {
     this.clickCanvas.reset();
   }
 
-  drawStrings(instrument) {
+  drawStrings(instrument, tuning) {
     for (
       let stringNumber = 0;
       stringNumber < instrument.nStrings;
       stringNumber++
     ) {
-      const fretboardString = getFretboardString(instrument, stringNumber);
+      const fretboardString = getFretboardString(instrument, tuning, stringNumber);
       fretboardString.draw(this.ctx);
     }
   }
@@ -45,7 +45,7 @@ export class Fretboard {
     }
   }
 
-  drawSemitones(instrument, activeKey, activeTones, optionalActiveTones) {
+  drawSemitones(instrument, tuning, activeKey, activeTones, optionalActiveTones) {
     activeTones.forEach((activeTone) => {
       const semitone = allSemitones.find(
         note => note.position === activeTone
@@ -53,6 +53,7 @@ export class Fretboard {
       const isOptional = optionalActiveTones.has(activeTone);
       const fretboardSemitone = new FretboardSemitone(
         instrument,
+        tuning,
         activeKey.rootNote.index,
         semitone,
         isOptional
@@ -62,7 +63,7 @@ export class Fretboard {
   }
 
   draw(state) {
-    const { activeKey, activeTones, instrument, optionalActiveTones } = state;
+    const { activeKey, activeTones, instrument, optionalActiveTones, tuning } = state;
 
     this.reset();
 
@@ -71,10 +72,11 @@ export class Fretboard {
       fretboardStyles.offsetY
     );
     onFretboard(this.ctx, () => {
-      this.drawStrings(instrument);
+      this.drawStrings(instrument, tuning);
       this.drawFrets(instrument);
       this.drawSemitones(
         instrument,
+        tuning,
         activeKey,
         activeTones,
         optionalActiveTones

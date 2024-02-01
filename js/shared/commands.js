@@ -15,6 +15,7 @@ export function redrawAll() {
   circleOfFifths.draw(state);
   rewriteChordVariations(state);
   highlightChordVariation();
+  updateTuningOptions();
 }
 
 export function redrawPiano() {
@@ -27,6 +28,22 @@ export function redrawFretboard() {
 
 export function redrawCircle() {
   circleOfFifths.draw(state);
+}
+
+export function updateTuningOptions() {
+  const tuningSelectElement = document.getElementById("tuning-select");
+  tuningSelectElement.replaceChildren()
+
+  for (const tuningId in state.instrument.tunings) {
+    const tuning = state.instrument.tunings[tuningId];
+    const text = `${tuning.name} (${tuning.stringLabels.toReversed().join('')})`
+
+    const optionElement = document.createElement("option");
+    optionElement.value = tuningId;
+    optionElement.appendChild(document.createTextNode(text));
+
+    tuningSelectElement.appendChild(optionElement);
+  }
 }
 
 function checkEqualSet(set1, set2) {
