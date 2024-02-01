@@ -15,7 +15,6 @@ export function redrawAll() {
   circleOfFifths.draw(state);
   rewriteChordVariations(state);
   highlightChordVariation();
-  updateTuningOptions();
 }
 
 export function redrawPiano() {

@@ -55,9 +55,9 @@ export function setChordsInKeyVisible(isVisible) {
 export function setInstrument(instrument) {
   if (instrument.name !== state.instrument.name) {
     state.instrument = instrument;
+    setTuningById(state.instrument.defaultTuning);
 
     updateTuningOptions();
-    redrawFretboard();
   }
 }
 

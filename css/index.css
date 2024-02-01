@@ -32,7 +32,7 @@ html {
   flex: 1;
   display: inline-block;
   text-align: left;
-  max-width: 200px;
+  max-width: 250px;
 }
 
 .setting-selector label {
@@ -61,7 +61,7 @@ html {
 }
 
 #tuning-selector select {
-  min-width: 200px;
+  min-width: 250px;
 }
 
 

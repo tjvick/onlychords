@@ -1,10 +1,16 @@
 import { setChordsInKeyVisible, setInstrument, setTuningById } from "./shared/state";
-import { redrawAll } from "./shared/commands";
+import { redrawAll, updateTuningOptions } from "./shared/commands";
 import { instruments } from "./shared/instrument";
 import { sendAnalyticsEvent } from "./analytics.js";
 
 function init() {
-  addFontFileToDocument().then(redrawAll);
+  addFontFileToDocument().then(() => {
+    const instrumentSelect = document.getElementById("instrument-select");
+    handleInstrumentSelect(instrumentSelect.value);
+
+    redrawAll();
+    updateTuningOptions();
+  });
 }
 
 function addFontFileToDocument() {
